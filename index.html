@@ -1,0 +1,77 @@
+/**
+ * Gestione dinamica degli articoli per Data Strategy Consulting
+ */
+
+async function loadArticles() {
+    const container = document.getElementById('articles-container');
+    
+    try {
+        // Carica i dati dal file JSON nella root del repository
+        const response = await fetch('articles.json');
+        
+        if (!response.ok) {
+            throw new Error('Impossibile caricare il database articoli');
+        }
+        
+        const articles = await response.json();
+        
+        // Pulisce i loader (skeleton screens)
+        container.innerHTML = '';
+
+        articles.forEach(article => {
+            const articleElement = createArticleCard(article);
+            container.appendChild(articleElement);
+        });
+
+    } catch (error) {
+        console.error("Errore critico:", error);
+        container.innerHTML = `
+            <div class="col-span-full py-10 text-center">
+                <p class="text-gray-400 italic">Le nostre ultime analisi sono in fase di revisione. Torna a trovarci a breve.</p>
+            </div>
+        `;
+    }
+}
+
+/**
+ * Crea l'elemento HTML per un singolo articolo
+ */
+function createArticleCard(article) {
+    const wrapper = document.createElement('article');
+    wrapper.className = 'group cursor-pointer hover-lift';
+    
+    wrapper.innerHTML = `
+        <div class="overflow-hidden bg-gray-50 mb-6 aspect-video flex items-center justify-center border border-gray-100 relative">
+            <div class="text-center p-8">
+                <div class="text-blue-900/30 font-mono text-[10px] mb-4 uppercase tracking-[0.3em] font-bold italic">${article.category}</div>
+                <div class="text-4xl mck-blue opacity-10 font-serif">§</div>
+            </div>
+            <div class="absolute bottom-4 right-6 text-[10px] font-mono text-gray-300 uppercase">${article.date}</div>
+        </div>
+        <div class="line-accent"></div>
+        <h3 class="text-2xl mck-blue mb-4 group-hover:text-blue-800 transition-colors leading-tight italic">
+            ${article.title}
+        </h3>
+        <p class="text-gray-500 font-light leading-relaxed mb-6 text-sm">
+            ${article.abstract}
+        </p>
+        <div class="flex space-x-6">
+            <a href="${article.link}" target="_blank" class="read-more-link">Leggi PDF (LaTeX)</a>
+            ${article.discussion ? `<a href="${article.discussion}" class="discussion-link">Discussione</a>` : ''}
+        </div>
+    `;
+
+    // Aggiungiamo classi specifiche per i link tramite JS per mantenere l'HTML pulito
+    wrapper.querySelectorAll('.read-more-link').forEach(link => {
+        link.className = 'text-[10px] font-bold mck-blue uppercase tracking-widest border-b border-blue-900 pb-1 hover:text-blue-700 transition-colors';
+    });
+    
+    if (article.discussion) {
+        wrapper.querySelector('.discussion-link').className = 'text-[10px] font-bold text-gray-400 uppercase tracking-widest border-b border-gray-200 pb-1 hover:text-gray-600 transition-colors';
+    }
+
+    return wrapper;
+}
+
+// Inizializza al caricamento del DOM
+document.addEventListener('DOMContentLoaded', loadArticles);

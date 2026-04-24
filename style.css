@@ -1,0 +1,90 @@
+/* --- CONFIGURAZIONE BASE --- */
+body {
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-serif {
+    font-family: 'Playfair Display', serif;
+}
+
+/* --- COLORI MCKINSEY --- */
+.mck-blue {
+    color: #051C2C;
+}
+
+.bg-mck-blue {
+    background-color: #051C2C;
+}
+
+/* --- COMPONENTI UI --- */
+.nav-link {
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #1e3a8a; /* blue-900 */
+}
+
+.btn-primary {
+    padding: 0.5rem 1rem;
+    background-color: #051C2C;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #1e3a8a;
+}
+
+.sub-heading {
+    color: #1d4ed8; /* blue-700 */
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+}
+
+/* --- ANIMAZIONI E EFFETTI --- */
+.hover-lift {
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px);
+}
+
+.line-accent {
+    height: 2px;
+    width: 40px;
+    background-color: #004277;
+    margin-bottom: 1.5rem;
+    transition: width 0.3s ease;
+}
+
+.group:hover .line-accent {
+    width: 80px;
+}
+
+.loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.contact-email {
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.contact-email:hover {
+    color: #1d4ed8;
+    border-bottom-color: #1d4ed8;
+}

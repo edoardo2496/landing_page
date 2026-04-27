@@ -1,1 +1,27 @@
+[
+  {
+    "title": "Monte Carlo per il forecasting: come ho stimato il fatturato FY2027",
+    "category": "Data Science",
+    "excerpt": "Come ho strutturato un modello stocastico per produrre distribuzioni di ricavo attese per cluster di vendita — e perché funziona meglio di un forecast puntuale.",
+    "date": "Aprile 2026",
+    "readTime": "8 min",
+    "url": "papers/monte-carlo-forecasting.html"
+  },
+  {
+    "title": "ODE applicati ai flussi operativi industriali",
+    "category": "Operations Research",
+    "excerpt": "Un sistema di equazioni differenziali ordinarie per modellare la capacità produttiva e dimostrare riduzioni di organico mantenendo i volumi. Il metodo, gli strumenti, i risultati.",
+    "date": "Marzo 2026",
+    "readTime": "11 min",
+    "url": "papers/ode-flussi-operativi.html"
+  },
+  {
+    "title": "ETL da tre gestionali eterogenei: note di progetto",
+    "category": "Data Engineering",
+    "excerpt": "Consolidare dati di fatturato da Oracle, Access e cubi OLAP DMX in un unico data layer PostgreSQL. Scelte architetturali, errori e soluzioni.",
+    "date": "Gennaio 2026",
+    "readTime": "6 min",
+    "url": "papers/etl-multi-gestionale.html"
+  }
+]
 

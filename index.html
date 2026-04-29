@@ -2,428 +2,512 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edoardo Crema — Data Consultant</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edoardo Crema — Consulente in Controllo di Gestione</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <span class="nav-logo">Edoardo Crema</span>
-    <ul class="nav-links">
-      <li><a href="#bio" data-i18n="nav.bio">Chi sono</a></li>
-      <li><a href="#process" data-i18n="nav.process">Il Processo</a></li>
-      <li><a href="#work" data-i18n="nav.work">Lavori</a></li>
-      <li><a href="#articles" data-i18n="nav.articles">Articoli</a></li>
-      <li><a href="#stack" data-i18n="nav.stack">Stack</a></li>
-    </ul>
-    <div class="nav-right">
-      <button class="lang-toggle" id="lang-toggle">EN</button>
-      <a href="#contact" class="nav-cta" data-i18n="nav.cta">Contatti</a>
-    </div>
-  </nav>
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="#" class="nav-logo">EC</a>
+  <ul class="nav-links">
+    <li><a href="#servizi">Servizi</a></li>
+    <li><a href="#about">Chi sono</a></li>
+    <li><a href="#projects">Lavori</a></li>
+    <li><a href="#articles">Articoli</a></li>
+    <li><a href="#contact">Contatti</a></li>
+  </ul>
+</nav>
 
-  <!-- HERO -->
-  <section class="hero" id="top">
-    <div class="hero-content">
-      <div class="hero-label" data-i18n="hero.label">Data Consultant</div>
-      <h1 class="hero-title">
-        <span data-i18n="hero.line1">Dal dato</span><br>
-        <em data-i18n="hero.line2">alla decisione.</em>
-      </h1>
-      <p class="hero-sub" data-i18n="hero.sub">Engineering · Analysis · Science</p>
-      <p class="hero-desc" data-i18n="hero.desc">
-        Mi occupo del dato a 360°. Dalla struttura di raccolta al modello predittivo,
-        accompagno aziende e organizzazioni lungo l'intero ciclo di vita del dato —
-        perché ogni fase conta, e nessuna va saltata.
+<!-- ── HERO ── -->
+<section class="hero" id="top">
+  <div class="hero-left">
+    <p class="hero-label">Consulente in Controllo di Gestione</p>
+    <h1 class="hero-title">I numeri della<br>tua azienda,<br><em>finalmente chiari.</em></h1>
+    <p class="hero-sub">
+      Aiuto imprenditori e direzione a <strong>misurare, capire e governare</strong>
+      la propria azienda con strumenti quantitativi costruiti ad hoc —
+      non fogli Excel improvvisati, non consulenze generiche.
+    </p>
+    <div class="hero-cta">
+      <a href="#servizi" class="btn-primary">Cosa faccio</a>
+      <a href="#contact" class="btn-ghost">Parliamo →</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-cell">
+      <div class="stat-num">4+</div>
+      <div class="stat-desc">Anni in contesti aziendali strutturati</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">−14%</div>
+      <div class="stat-desc">Riduzione costi operativi dimostrata con modello</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">3→1</div>
+      <div class="stat-desc">Gestionali unificati in un unico layer dati</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">+10%</div>
+      <div class="stat-desc">EBITDA growth generato da interventi di consulenza</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVIZI ── -->
+<section id="servizi">
+  <p class="section-label reveal">Cosa faccio</p>
+  <h2 class="section-title reveal">Quattro aree.<br><em>Un solo interlocutore.</em></h2>
+  <div class="services-grid reveal">
+
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Controllo di Gestione</div>
+      <p class="service-desc">
+        Costruisco sistemi di controllo su misura: margini per commessa o
+        prodotto, budget e consuntivo, variance analysis. Strumenti che la
+        direzione usa davvero — non report che finiscono in un cassetto.
       </p>
-      <div class="hero-actions">
-        <a href="#process" class="btn-primary" data-i18n="hero.cta1">Scopri il processo</a>
-        <a href="#contact" class="btn-ghost" data-i18n="hero.cta2">Parliamo →</a>
+      <div class="service-examples">
+        <span class="service-example">P&amp;L per commessa o centro di costo</span>
+        <span class="service-example">Budget operativo e finanziario</span>
+        <span class="service-example">Analisi scostamento previsto / consuntivo</span>
+        <span class="service-example">KPI direzionali e cruscotti</span>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="cycle-diagram">
-        <div class="cycle-step" data-step="1">
-          <span class="step-num">01</span>
-          <span class="step-name" data-i18n="cycle.collect">Raccolta</span>
-        </div>
-        <div class="cycle-connector">↓</div>
-        <div class="cycle-step" data-step="2">
-          <span class="step-num">02</span>
-          <span class="step-name" data-i18n="cycle.clean">Pulizia</span>
-        </div>
-        <div class="cycle-connector">↓</div>
-        <div class="cycle-step" data-step="3">
-          <span class="step-num">03</span>
-          <span class="step-name" data-i18n="cycle.observe">Osservazione</span>
-        </div>
-        <div class="cycle-connector">↓</div>
-        <div class="cycle-step" data-step="4">
-          <span class="step-num">04</span>
-          <span class="step-name" data-i18n="cycle.predict">Previsione</span>
-        </div>
+
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">Reporting & Business Intelligence</div>
+      <p class="service-desc">
+        Trasformo i dati già presenti nei tuoi sistemi in una vista unica,
+        affidabile e leggibile. Dall'integrazione delle fonti alla dashboard
+        che risponde alle domande della direzione in tempo reale.
+      </p>
+      <div class="service-examples">
+        <span class="service-example">Integrazione dati da gestionali eterogenei</span>
+        <span class="service-example">Dashboard KPI operative e strategiche</span>
+        <span class="service-example">Reportistica automatica verso la direzione</span>
+        <span class="service-example">Eliminazione dei fogli Excel duplicati</span>
       </div>
     </div>
-  </section>
 
-  <!-- BIO -->
-  <section id="bio" class="section-cream">
-    <div class="section-header fade-up">
-      <span class="section-num">00</span>
-      <h2 class="section-title" data-i18n="bio.title">Chi sono</h2>
-      <div class="section-line"></div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">Ottimizzazione Operativa</div>
+      <p class="service-desc">
+        Analizzo i processi con metodo quantitativo per individuare dove si
+        perde efficienza, dove si spreca risorsa, dove si può ridurre il costo
+        senza perdere qualità o volume.
+      </p>
+      <div class="service-examples">
+        <span class="service-example">Mappatura e analisi dei flussi operativi</span>
+        <span class="service-example">Dimensionamento organizzativo con evidenza</span>
+        <span class="service-example">Riduzione costo del lavoro su commessa</span>
+        <span class="service-example">Digitalizzazione rilevazione costi di campo</span>
+      </div>
     </div>
 
-    <div class="bio-grid fade-up">
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-name">Previsione & Pianificazione</div>
+      <p class="service-desc">
+        Modelli statistici e simulazioni per rispondere a domande concrete:
+        come andrà il fatturato? Quante risorse mi servono? Sto comprando
+        al momento giusto? Non opinioni — stime con bande di confidenza.
+      </p>
+      <div class="service-examples">
+        <span class="service-example">Forecast fatturato per cluster / mercato</span>
+        <span class="service-example">Simulazioni scenari per il piano strategico</span>
+        <span class="service-example">Modelli di dimensionamento workforce</span>
+        <span class="service-example">Segnali quantitativi per il procurement</span>
+      </div>
+    </div>
 
-      <!-- Foto + intro -->
-      <div class="bio-left">
-        <div class="bio-photo-wrap">
-          <img src="assets/foto_profilo.jpg" alt="Edoardo Crema" class="bio-photo" />
-        </div>
-        <div class="bio-intro">
-          <p class="bio-text" data-i18n="bio.text1"></p>
-          <p class="bio-text" data-i18n="bio.text2"></p>
-          <div class="bio-langs">
-            <span class="bio-lang-item" data-i18n="bio.lang1"></span>
-            <span class="bio-lang-item" data-i18n="bio.lang2"></span>
-          </div>
+  </div>
+</section>
+
+<!-- ── PHILOSOPHY BREAK ── -->
+<div class="philosophy-wrap">
+  <div class="philosophy-inner reveal">
+    <div class="divider"></div>
+    <p class="philosophy-quote">"Non coordino sviluppatori. Non produco deck. Capisco il problema, poi costruisco lo strumento — dall'analisi al rilascio in produzione."</p>
+    <div class="divider"></div>
+    <p class="philosophy-note">— Il principio dietro ogni incarico</p>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <p class="section-label reveal">Chi sono</p>
+  <h2 class="section-title reveal">Rigore metodologico.<br><em>Risultati misurabili.</em></h2>
+  <div class="about-grid">
+    <div class="about-body reveal">
+      <p>
+        Mi chiamo Edoardo Crema e lavoro come consulente in controllo di gestione
+        e analisi quantitativa, con sede a Treviso. Supporto PMI e organizzazioni
+        strutturate che vogliono governare la propria azienda con gli stessi
+        strumenti analitici delle grandi imprese — senza la complessità e i costi di
+        una struttura interna dedicata.
+      </p>
+      <p>
+        Il mio approccio è end-to-end: mi occupo del problema dall'analisi iniziale
+        fino allo strumento in produzione. <strong>Nessun intermediario, nessuna
+        black box</strong> — ogni modello è spiegabile, ogni dashboard è modificabile,
+        ogni numero ha una fonte tracciabile.
+      </p>
+      <div class="highlight">
+        Ho una formazione deliberatamente trasversale: <strong>Laurea Magistrale in
+        Filosofia</strong> (Ca' Foscari, 110L) e <strong>Ingegneria Gestionale</strong>
+        attualmente in corso (Udine). La filosofia mi ha dato il metodo per scomporre
+        problemi complessi. L'ingegneria gestionale mi dà il linguaggio quantitativo.
+        I dati sono dove i due convergono in qualcosa di utile.
+      </div>
+      <p>
+        Prima di lavorare in libera professione, ho trascorso quattro anni in contesti
+        aziendali strutturati — tra cui una multinazionale del testing analitico —
+        dove ho costruito modelli predittivi in produzione, pipeline ETL multi-gestionale
+        e strumenti di pianificazione strategica per la dirigenza.
+      </p>
+    </div>
+    <div class="about-aside reveal">
+      <div class="aside-item">
+        <div class="aside-label">Attività</div>
+        <div class="aside-value">Consulente in Controllo di Gestione<br>e Analisi Quantitativa — Libera Professione</div>
+      </div>
+      <div class="aside-item">
+        <div class="aside-label">Sede</div>
+        <div class="aside-value">Treviso, Veneto — disponibile da remoto e in presenza nel Nord-Est</div>
+      </div>
+      <div class="aside-item">
+        <div class="aside-label">Formazione</div>
+        <div class="aside-value">
+          Ingegneria Gestionale — Udine (in corso)<br>
+          Laurea Magistrale in Filosofia — Ca' Foscari (110L)<br>
+          Laurea Triennale in Filosofia — Ca' Foscari (110)
         </div>
       </div>
 
-      <!-- Timeline -->
-      <div class="bio-right">
-
+      <div class="timeline">
         <div class="timeline-block">
-          <div class="timeline-label" data-i18n="bio.exp.label">Esperienza</div>
+          <div class="timeline-block-label">Esperienza</div>
 
           <div class="timeline-item">
             <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-period">2026 — oggi</span>
-              <div class="timeline-role" data-i18n="bio.exp1.role">Analytics Consultant — Libera Professione</div>
-              <div class="timeline-org">PMI · Italia</div>
-              <p class="timeline-desc" data-i18n="bio.exp1.desc">Supporto a PMI nella costruzione di strumenti analitici end-to-end: dal brief con il cliente al rilascio in produzione.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-period">2023 — 2026</span>
-              <div class="timeline-role" data-i18n="bio.exp2.role">Data Analyst & Data Scientist</div>
-              <div class="timeline-org">Mérieux NutriSciences · Resana (TV)</div>
-              <p class="timeline-desc" data-i18n="bio.exp2.desc">Modelli predittivi in produzione, pipeline ETL multi-gestionale, dashboard KPI strategiche per la dirigenza.</p>
+            <div style="padding-left:1rem;">
+              <div class="tl-period">2026 — oggi</div>
+              <div class="tl-role">Consulente — Libera Professione</div>
+              <div class="tl-org">PMI · Nord-Est Italia</div>
             </div>
           </div>
 
           <div class="timeline-item">
             <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-period">2022 — 2023</span>
-              <div class="timeline-role" data-i18n="bio.exp3.role">HR Cost Controller</div>
-              <div class="timeline-org">Replay · Asolo (TV)</div>
-              <p class="timeline-desc" data-i18n="bio.exp3.desc">Raccolta e strutturazione dei dati di costo del personale, supporto alla costruzione del budget aziendale.</p>
+            <div style="padding-left:1rem;">
+              <div class="tl-period">2023 — 2026</div>
+              <div class="tl-role">Data Analyst & Data Scientist</div>
+              <div class="tl-org">Mérieux NutriSciences · Resana (TV)</div>
             </div>
           </div>
 
           <div class="timeline-item">
             <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-period">2020 — 2022</span>
-              <div class="timeline-role" data-i18n="bio.exp4.role">Process & HR Data Analyst</div>
-              <div class="timeline-org">Mérieux NutriSciences · Resana (TV)</div>
-              <p class="timeline-desc" data-i18n="bio.exp4.desc">Analisi HR, variance analysis previsionale vs. consuntivo, progettazione del processo di selezione end-to-end.</p>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="timeline-block">
-          <div class="timeline-label" data-i18n="bio.edu.label">Formazione</div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot timeline-dot--edu"></div>
-            <div class="timeline-content">
-              <span class="timeline-period">2022 — in corso</span>
-              <div class="timeline-role" data-i18n="bio.edu1.role">Laurea Triennale in Ingegneria Gestionale</div>
-              <div class="timeline-org">Università degli Studi di Udine</div>
+            <div style="padding-left:1rem;">
+              <div class="tl-period">2022 — 2023</div>
+              <div class="tl-role">HR Cost Controller</div>
+              <div class="tl-org">Replay · Asolo (TV)</div>
             </div>
           </div>
 
           <div class="timeline-item">
-            <div class="timeline-dot timeline-dot--edu"></div>
-            <div class="timeline-content">
-              <span class="timeline-period">2019 — 2022</span>
-              <div class="timeline-role" data-i18n="bio.edu2.role">Laurea Magistrale in Scienze Filosofiche</div>
-              <div class="timeline-org">Università Ca' Foscari, Venezia · 110/110 con Lode</div>
+            <div class="timeline-dot"></div>
+            <div style="padding-left:1rem;">
+              <div class="tl-period">2020 — 2022</div>
+              <div class="tl-role">Process & HR Data Analyst</div>
+              <div class="tl-org">Mérieux NutriSciences · Resana (TV)</div>
             </div>
           </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot timeline-dot--edu"></div>
-            <div class="timeline-content">
-              <span class="timeline-period">2016 — 2019</span>
-              <div class="timeline-role" data-i18n="bio.edu3.role">Laurea Triennale in Filosofia</div>
-              <div class="timeline-org">Università Ca' Foscari, Venezia · 110/110</div>
-            </div>
-          </div>
-
         </div>
+      </div>
 
+      <div class="aside-item" style="margin-top:.5rem;">
+        <div class="aside-label">GitHub</div>
+        <div class="aside-value"><a href="https://github.com/edoardo2496">github.com/edoardo2496</a></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PROCESS / 4 ATTI -->
-  <section id="process">
-    <div class="section-header fade-up">
-      <span class="section-num">01</span>
-      <h2 class="section-title" data-i18n="process.title">Il ciclo del dato</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="process-grid fade-up">
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <p class="section-label reveal">Lavori selezionati</p>
+  <h2 class="section-title reveal">Problemi reali.<br><em>Soluzioni in produzione.</em></h2>
+  <div class="projects-list reveal">
 
-      <div class="process-card">
-        <div class="process-card-top">
-          <span class="process-num">01</span>
-          <h3 data-i18n="p1.title">Raccolta</h3>
-          <span class="process-tag">Data Engineering</span>
-        </div>
-        <p data-i18n="p1.desc">
-          Hai bisogno di strutturare come raccogli i tuoi dati? Ti aiuto a scegliere
-          il database giusto, progettare lo schema e costruire le fondamenta
-          su cui tutto il resto poggia.
-        </p>
-        <ul class="process-tools">
-          <li>PostgreSQL · MySQL</li>
-          <li>DuckDB · SQLite</li>
-          <li>Schema design</li>
-        </ul>
-      </div>
-
-      <div class="process-card">
-        <div class="process-card-top">
-          <span class="process-num">02</span>
-          <h3 data-i18n="p2.title">Pulizia</h3>
-          <span class="process-tag">Data Engineering</span>
-        </div>
-        <p data-i18n="p2.desc">
-          Il dato grezzo è rumore. Costruisco pipeline Python che raffinano,
-          normalizzano e consolidano i tuoi dati da sorgenti eterogenee
-          in un unico layer affidabile.
-        </p>
-        <ul class="process-tools">
-          <li>Python · pandas</li>
-          <li>Pipeline ETL</li>
-          <li>Data validation</li>
-        </ul>
-      </div>
-
-      <div class="process-card">
-        <div class="process-card-top">
-          <span class="process-num">03</span>
-          <h3 data-i18n="p3.title">Osservazione</h3>
-          <span class="process-tag">Business Intelligence</span>
-        </div>
-        <p data-i18n="p3.desc">
-          Vuoi capire dove sei adesso? Analisi descrittive e dashboard KPI
-          che trasformano i numeri in una fotografia chiara dello status quo —
-          fruibile dalla direzione, non solo dai tecnici.
-        </p>
-        <ul class="process-tools">
-          <li>Apache Superset</li>
-          <li>Power BI · Looker</li>
-          <li>Analisi descrittiva</li>
-        </ul>
-      </div>
-
-      <div class="process-card process-card--accent">
-        <div class="process-card-top">
-          <span class="process-num">04</span>
-          <h3 data-i18n="p4.title">Previsione</h3>
-          <span class="process-tag process-tag--light">Data Science</span>
-        </div>
-        <p data-i18n="p4.desc">
-          Il dato come bussola verso l'incertezza del futuro. Modelli matematici
-          e statistici che non eliminano il rischio — lo quantificano,
-          così le tue decisioni diventano orientate, non casuali.
-        </p>
-        <ul class="process-tools">
-          <li>scikit-learn · Prophet</li>
-          <li>Monte Carlo · ODE</li>
-          <li>Forecasting · ML</li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SELECTED WORK -->
-  <section id="work" class="section-dark">
-    <div class="section-header fade-up">
-      <span class="section-num" style="color:var(--accent2)">02</span>
-      <h2 class="section-title" style="color:#fff" data-i18n="work.title">Lavori selezionati</h2>
-      <div class="section-line" style="background:rgba(255,255,255,0.15)"></div>
-    </div>
-    <div class="work-list fade-up">
-
-      <div class="work-item">
-        <span class="work-year">2026</span>
-        <div class="work-main">
-          <div class="work-company">PMI · Consulenza</div>
-          <div class="work-title" data-i18n="w1.title">Sistema P&amp;L per commessa — da zero a produzione</div>
-        </div>
-        <div class="work-impact" data-i18n="w1.impact">Primo sistema di controllo di gestione per progetto. Oggi strumento decisionale principale della direzione operativa.</div>
-        <div class="work-act act-4" data-i18n="w1.act">Previsione</div>
-      </div>
-
-      <div class="work-item">
-        <span class="work-year">2025</span>
-        <div class="work-main">
-          <div class="work-company">Mérieux NutriSciences</div>
-          <div class="work-title" data-i18n="w2.title">Modello Monte Carlo — Forecasting FY2027</div>
-        </div>
-        <div class="work-impact" data-i18n="w2.impact">Distribuzione attesa del fatturato per cluster. Input diretto della pianificazione strategica della dirigenza.</div>
-        <div class="work-act act-4" data-i18n="w2.act">Previsione</div>
-      </div>
-
-      <div class="work-item">
-        <span class="work-year">2024</span>
-        <div class="work-main">
-          <div class="work-company">Mérieux NutriSciences</div>
-          <div class="work-title" data-i18n="w3.title">Modello ODE dei flussi operativi</div>
-        </div>
-        <div class="work-impact" data-i18n="w3.impact">Dimostrata la fattibilità di ridurre gli FTE del 14% mantenendo i volumi. Ha abilitato un piano di riqualificazione.</div>
-        <div class="work-act act-4" data-i18n="w3.act">Previsione</div>
-      </div>
-
-      <div class="work-item">
-        <span class="work-year">2024</span>
-        <div class="work-main">
-          <div class="work-company">Mérieux NutriSciences</div>
-          <div class="work-title" data-i18n="w4.title">Pipeline ETL multi-gestionale su PostgreSQL</div>
-        </div>
-        <div class="work-impact" data-i18n="w4.impact">Unificazione dati da tre gestionali eterogenei. Primo dataset aziendale unificato mai esistito.</div>
-        <div class="work-act act-2" data-i18n="w4.act">Pulizia</div>
-      </div>
-
-      <div class="work-item">
-        <span class="work-year">2023</span>
-        <div class="work-main">
-          <div class="work-company">Mérieux NutriSciences</div>
-          <div class="work-title" data-i18n="w5.title">Modello retention candidates</div>
-        </div>
-        <div class="work-impact" data-i18n="w5.impact">Regressione logistica per stimare la permanenza dei nuovi assunti. Guida le strategie di recruiting verso profili ad alta retention.</div>
-        <div class="work-act act-4" data-i18n="w5.act">Previsione</div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ARTICLES -->
-  <section id="articles">
-    <div class="section-header fade-up">
-      <span class="section-num">03</span>
-      <h2 class="section-title" data-i18n="articles.title">Articoli & pensieri</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="articles-grid fade-up" id="articles-container">
-      <div class="articles-placeholder">Caricamento articoli…</div>
-    </div>
-  </section>
-
-  <!-- STACK -->
-  <section id="stack" class="section-cream">
-    <div class="section-header fade-up">
-      <span class="section-num">04</span>
-      <h2 class="section-title" data-i18n="stack.title">Stack tecnico</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="stack-categories fade-up">
-      <div class="stack-group">
-        <div class="stack-group-label">Engineering</div>
-        <div class="stack-chips">
-          <span class="chip">Python</span>
-          <span class="chip">SQL</span>
-          <span class="chip">PostgreSQL</span>
-          <span class="chip">DuckDB</span>
-          <span class="chip">pandas</span>
-          <span class="chip">ETL</span>
-        </div>
-      </div>
-      <div class="stack-group">
-        <div class="stack-group-label">Analysis & BI</div>
-        <div class="stack-chips">
-          <span class="chip">Apache Superset</span>
-          <span class="chip">Power BI</span>
-          <span class="chip">Looker Studio</span>
-          <span class="chip">R / RStudio</span>
-          <span class="chip">Jupyter</span>
-        </div>
-      </div>
-      <div class="stack-group">
-        <div class="stack-group-label">Science & Modelling</div>
-        <div class="stack-chips">
-          <span class="chip">scikit-learn</span>
-          <span class="chip">Prophet</span>
-          <span class="chip">Monte Carlo</span>
-          <span class="chip">ODE systems</span>
-          <span class="chip">numpy / scipy</span>
-        </div>
-      </div>
-      <div class="stack-group">
-        <div class="stack-group-label">Dev & Deploy</div>
-        <div class="stack-chips">
-          <span class="chip">Git / GitHub</span>
-          <span class="chip">Apps Script</span>
-          <span class="chip">HTML/CSS/JS</span>
-          <span class="chip">Excel avanzato</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="section-forest">
-    <div class="section-header fade-up">
-      <span class="section-num" style="color:var(--accent2)">05</span>
-      <h2 class="section-title" style="color:#fff" data-i18n="contact.title">Iniziamo</h2>
-      <div class="section-line" style="background:rgba(255,255,255,0.15)"></div>
-    </div>
-    <div class="contact-grid fade-up">
+    <div class="project-item">
+      <div class="project-num">01</div>
       <div>
-        <p class="contact-desc" data-i18n="contact.desc">
-          Hai un problema con i tuoi dati — non sai come raccoglierli, pulirli,
-          interpretarli o usarli per fare previsioni? Parliamone.
-          Il primo passo è sempre una conversazione.
+        <div class="project-problem">Controllo di gestione → costi per commessa</div>
+        <div class="project-title">Sistema P&amp;L per commessa — digitalizzazione e controllo costi operativi</div>
+        <p class="project-desc">
+          La direzione non aveva visibilità sui costi reali per cantiere: acquisti e ore lavorate
+          venivano tracciati su carta o chat informali. Ho progettato e costruito un sistema end-to-end:
+          due web app mobile-first per la rilevazione in campo, pipeline di consolidamento su SQLite
+          e layer di P&amp;L per commessa. Oggi è lo strumento principale di controllo della direzione operativa.
         </p>
-        <ul class="contact-list">
-          <li><a href="mailto:edoardo.crema@outlook.it"><span>Email</span>edoardo.crema@outlook.it</a></li>
-          <li><a href="tel:+393388601102"><span>Tel</span>+39 338 860 1102</a></li>
-          <li><a href="https://github.com/edoardo2496" target="_blank"><span>GitHub</span>github.com/edoardo2496</a></li>
-          <li><a href="#"><span>Location</span>Treviso, Italia</a></li>
-        </ul>
+        <div class="project-tags">
+          <span class="tag">Controllo costi</span><span class="tag">P&amp;L commessa</span>
+          <span class="tag">Digitalizzazione</span><span class="tag">In produzione</span>
+        </div>
       </div>
-      <div class="contact-quote-wrap">
-        <p class="contact-quote" data-i18n="contact.quote">
-          "Il dato non mente.<br>Ma va saputo ascoltare."
-        </p>
+      <div class="project-result">
+        <div class="result-value">0→1</div>
+        <div class="result-label">Controllo costi<br>costruito da zero</div>
       </div>
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <span>© 2026 Edoardo Crema</span>
-    <span data-i18n="footer.role">Data Consultant · Treviso, Italia</span>
-    <a href="https://github.com/edoardo2496/landing_page" target="_blank">GitHub ↗</a>
-  </footer>
+    <div class="project-item">
+      <div class="project-num">02</div>
+      <div>
+        <div class="project-problem">Pianificazione strategica → forecast ricavi</div>
+        <div class="project-title">Simulazione Monte Carlo — Forecast Fatturato FY2027</div>
+        <p class="project-desc">
+          La direzione finanziaria necessitava di una visione probabilistica del fatturato atteso,
+          non di un'unica stima puntuale soggetta a bias. Ho costruito un motore di simulazione
+          che modella la distribuzione del fatturato per cluster commerciale. L'output — distribuzioni
+          con bande di confidenza per cluster — è diventato input diretto della pianificazione strategica.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Forecast ricavi</span><span class="tag">Pianificazione strategica</span>
+          <span class="tag">Analisi scenari</span><span class="tag">Finance</span>
+        </div>
+      </div>
+      <div class="project-result">
+        <div class="result-value">FY27</div>
+        <div class="result-label">Input diretto<br>piano strategico</div>
+      </div>
+    </div>
 
-  <script src="app.js"></script>
+    <div class="project-item">
+      <div class="project-num">03</div>
+      <div>
+        <div class="project-problem">Ottimizzazione operativa → dimensionamento workforce</div>
+        <div class="project-title">Modello dei flussi operativi — analisi capacità e dimensionamento organizzativo</div>
+        <p class="project-desc">
+          Il management voleva capire se i livelli di organico fossero effettivamente necessari.
+          Ho modellato i flussi di lavoro del dipartimento come sistema dinamico, mappando
+          dipendenze tra task, picchi di carico e vincoli di capacità. Il modello ha dimostrato
+          che una riduzione del 14% degli FTE era attuabile mantenendo gli output — abilitando
+          un piano di riqualificazione anziché tagli.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Workforce planning</span><span class="tag">Analisi capacità</span>
+          <span class="tag">Ottimizzazione costi</span><span class="tag">In produzione</span>
+        </div>
+      </div>
+      <div class="project-result">
+        <div class="result-value">−14%</div>
+        <div class="result-label">FTE riduzione<br>dimostrata</div>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">04</div>
+      <div>
+        <div class="project-problem">Reporting direzionale → infrastruttura dati</div>
+        <div class="project-title">Pipeline ETL multi-gestionale — primo dataset ricavi unificato</div>
+        <p class="project-desc">
+          I dati di ricavo erano frammentati su tre gestionali eterogenei senza layer di integrazione.
+          Ho progettato e implementato una pipeline completa di estrazione, trasformazione e caricamento
+          su PostgreSQL, costruendo il primo dataset ricavi unificato dell'azienda partendo da zero.
+          È diventato la base di tutto il reporting BI direzionale.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Integrazione gestionali</span><span class="tag">Reporting direzionale</span>
+          <span class="tag">Data architecture</span><span class="tag">ETL</span>
+        </div>
+      </div>
+      <div class="project-result">
+        <div class="result-value">3→1</div>
+        <div class="result-label">Gestionali unificati<br>da zero</div>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-num">05</div>
+      <div>
+        <div class="project-problem">HR & talent → ottimizzazione costo di selezione</div>
+        <div class="project-title">Modello predittivo di retention — supporto alla strategia di recruiting</div>
+        <p class="project-desc">
+          L'HR investiva ugualmente su tutti i candidati senza distinguere chi avrebbe avuto
+          maggiori probabilità di restare. Ho costruito un modello di classificazione addestrato
+          su dati storici per stimare la probabilità di permanenza al momento della selezione.
+          Oggi orienta la strategia di recruiting verso profili ad alta retention.
+        </p>
+        <div class="project-tags">
+          <span class="tag">HR analytics</span><span class="tag">Costo di attrition</span>
+          <span class="tag">Modello predittivo</span><span class="tag">In produzione</span>
+        </div>
+      </div>
+      <div class="project-result">
+        <div class="result-value">Live</div>
+        <div class="result-label">Guida la strategia<br>di recruiting</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── STACK ── -->
+<section id="stack">
+  <p class="section-label reveal">Strumenti</p>
+  <h2 class="section-title reveal">Lo stack tecnico<br><em>dietro ogni lavoro.</em></h2>
+  <div class="stack-grid reveal">
+    <div class="stack-cell">
+      <div class="stack-category">Linguaggi</div>
+      <ul class="stack-items">
+        <li>Python (primario)</li>
+        <li>SQL (avanzato)</li>
+        <li>R / RStudio</li>
+        <li>M Language (PowerQuery)</li>
+        <li>DMX (cubi OLAP)</li>
+      </ul>
+    </div>
+    <div class="stack-cell">
+      <div class="stack-category">Modellazione</div>
+      <ul class="stack-items">
+        <li>Sistemi ODE (SciPy)</li>
+        <li>Simulazione Monte Carlo</li>
+        <li>Regressione logistica</li>
+        <li>Time series / Prophet</li>
+        <li>Processi stocastici</li>
+      </ul>
+    </div>
+    <div class="stack-cell">
+      <div class="stack-category">Dati & BI</div>
+      <ul class="stack-items">
+        <li>PostgreSQL · Oracle · SQLite</li>
+        <li>Power BI · Superset · Looker</li>
+        <li>pandas · numpy · scikit-learn</li>
+        <li>ETL pipeline design</li>
+      </ul>
+    </div>
+    <div class="stack-cell">
+      <div class="stack-category">Processo</div>
+      <ul class="stack-items">
+        <li>Controllo di gestione</li>
+        <li>Process mapping & Lean</li>
+        <li>Architettura KPI</li>
+        <li>Git · Jupyter</li>
+        <li>Excel avanzato</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── ARTICLES ── -->
+<section id="articles">
+  <p class="section-label reveal">Articoli</p>
+  <h2 class="section-title reveal">Pensiero rigoroso,<br><em>applicato.</em></h2>
+  <div class="articles-list reveal">
+
+    <div class="article-card" onclick="window.open('https://edoardo2496.github.io/data_science_portfolio/stochastic_iro_ore_model/index.html','_blank')">
+      <div class="article-num">01</div>
+      <div>
+        <div class="article-meta"><span>Finanza & Procurement</span> Apr 2025 · 12 min</div>
+        <div class="article-title">Quando il prezzo del minerale di ferro dice di comprare: mean-reversion, Lemma di Itô e un segnale procurement in tempo reale</div>
+        <p class="article-abstract">
+          I prezzi delle commodity non seguono un random walk: hanno memoria. Mostro come
+          modellare il processo di prezzo come SDE di Ornstein-Uhlenbeck, calibrarlo su 20 anni
+          di dati e costruire uno Z-score che segnala quando il prezzo spot è un'anomalia
+          statistica su cui agire.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Procurement</span><span class="tag">Modellazione stocastica</span>
+          <span class="tag">Finanza quantitativa</span>
+        </div>
+      </div>
+      <div class="article-arrow">→</div>
+    </div>
+
+    <div class="article-card" style="opacity:.38; cursor:default; pointer-events:none;">
+      <div class="article-num">02</div>
+      <div>
+        <div class="article-meta"><span>Operations Research</span> In arrivo</div>
+        <div class="article-title">Flussi operativi come sistema dinamico: come il modello ODE cambia la risposta alla domanda sull'organico ottimale</div>
+        <p class="article-abstract">
+          Trattare il carico di lavoro di un dipartimento come sistema a tempo continuo produce
+          una risposta radicalmente diversa alla domanda su quante persone servono davvero.
+        </p>
+      </div>
+      <div class="article-arrow" style="color:var(--border)">→</div>
+    </div>
+
+    <div class="article-card" style="opacity:.38; cursor:default; pointer-events:none;">
+      <div class="article-num">03</div>
+      <div>
+        <div class="article-meta"><span>HR Analytics</span> In arrivo</div>
+        <div class="article-title">L'attrition come probabilità: un modello che orienta il recruiting prima del giorno uno</div>
+        <p class="article-abstract">
+          Un modello di classificazione che stima la probabilità di permanenza al momento
+          della selezione — e perché la feature engineering conta più dell'algoritmo.
+        </p>
+      </div>
+      <div class="article-arrow" style="color:var(--border)">→</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <p class="section-label reveal">Contatti</p>
+  <h2 class="section-title reveal">Hai un problema<br>da <em>misurare e risolvere?</em></h2>
+  <div class="contact-grid">
+    <div class="reveal">
+      <p class="contact-note">
+        Sono disponibile per <strong>incarichi di consulenza</strong> su controllo di gestione,
+        reporting direzionale, ottimizzazione operativa e modellazione previsionale.
+        Se stai cercando qualcuno che capisca il problema prima di aprire un file,
+        parliamone — il primo passo è sempre una conversazione.
+      </p>
+      <a href="mailto:edoardo.crema@outlook.it" class="btn-primary">Scrivimi</a>
+    </div>
+    <div class="contact-links reveal">
+      <a href="mailto:edoardo.crema@outlook.it" class="contact-link">
+        <div class="contact-link-icon">✉</div>
+        <div>
+          <div class="contact-link-label">Email</div>
+          <div class="contact-link-value">edoardo.crema@outlook.it</div>
+        </div>
+      </a>
+      <a href="tel:+393388601102" class="contact-link">
+        <div class="contact-link-icon">◎</div>
+        <div>
+          <div class="contact-link-label">Telefono</div>
+          <div class="contact-link-value">+39 338 860 1102</div>
+        </div>
+      </a>
+      <a href="https://github.com/edoardo2496" class="contact-link" target="_blank">
+        <div class="contact-link-icon">⌥</div>
+        <div>
+          <div class="contact-link-label">GitHub</div>
+          <div class="contact-link-value">github.com/edoardo2496</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span>Edoardo Crema · Treviso, Italia</span>
+  <span>Consulente in Controllo di Gestione e Analisi Quantitativa</span>
+</footer>
+
+<script src="app.js"></script>
 </body>
 </html>

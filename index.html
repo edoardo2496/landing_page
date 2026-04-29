@@ -1,23 +1,752 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Edoardo Crema — Consulente in Controllo di Gestione</title>
+  <title>Edoardo Crema — Analisi Dati & Consulenza Aziendale</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ─── RESET & BASE ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+:root {
+  --bg:        #080808;
+  --bg2:       #0f0f0f;
+  --bg3:       #161616;
+  --border:    #222222;
+  --border2:   #2e2e2e;
+  --gold:      #c9a84c;
+  --gold2:     #e8c87a;
+  --text:      #e8e4de;
+  --text2:     #9a9690;
+  --text3:     #555250;
+  --serif:     'Cormorant Garamond', Georgia, serif;
+  --mono:      'JetBrains Mono', monospace;
+  --sans:      'Instrument Sans', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::before {
+  content:'';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .022;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s, background .3s;
+  backdrop-filter: blur(0px);
+}
+nav.scrolled {
+  border-color: var(--border);
+  background: rgba(8,8,8,.92);
+  backdrop-filter: blur(12px);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-decoration: none;
+  letter-spacing: .05em;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+}
+.nav-links a {
+  font-family: var(--mono);
+  font-size: .68rem;
+  font-weight: 400;
+  color: var(--text2);
+  text-decoration: none;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 8rem 3rem 4rem;
+  gap: 4rem;
+  position: relative;
+}
+
+/* subtle grid lines */
+.hero::after {
+  content:'';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: .18;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black 20%, transparent 100%);
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: .65rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -.01em;
+  margin-bottom: 2rem;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--gold2);
+}
+
+.hero-body {
+  font-size: 1rem;
+  color: var(--text2);
+  line-height: 1.75;
+  max-width: 38ch;
+  margin-bottom: 2.5rem;
+}
+.hero-body strong { color: var(--text); font-weight: 500; }
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: .75rem 2rem;
+  background: var(--gold);
+  color: #080808;
+  font-family: var(--mono);
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+}
+.btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-block;
+  padding: .75rem 2rem;
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  font-family: var(--mono);
+  font-size: .7rem;
+  font-weight: 400;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ─── HERO RIGHT: DATA PANEL ─── */
+.hero-panel {
+  position: relative;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  padding: 2rem;
+}
+.hero-panel::before {
+  content: 'INDICATORI · LIVE';
+  position: absolute;
+  top: -1px; left: 2rem;
+  transform: translateY(-50%);
+  background: var(--bg2);
+  padding: 0 .5rem;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .15em;
+  color: var(--gold);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+}
+.kpi-cell {
+  background: var(--bg2);
+  padding: 1.6rem 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-cell::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 1.4rem; right: 1.4rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.kpi-cell:hover::after { opacity: 1; }
+
+.kpi-num {
+  font-family: var(--mono);
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: var(--gold2);
+  letter-spacing: -.03em;
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+.kpi-label {
+  font-size: .75rem;
+  color: var(--text3);
+  line-height: 1.4;
+}
+
+.panel-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.panel-tag {
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: .3rem .6rem;
+  border: 1px solid var(--border);
+}
+
+/* ─── SECTION BASE ─── */
+section {
+  padding: 7rem 3rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: .65rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 1px;
+  background: var(--gold);
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 3.5rem;
+}
+.section-title em { font-style: italic; color: var(--gold2); }
+
+/* ─── SEPARATOR ─── */
+.sep {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ─── VALUE PROP STRIP ─── */
+.vp-strip {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 3rem;
+  overflow: hidden;
+  position: relative;
+}
+.vp-inner {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+.vp-sep { color: var(--gold); opacity: .4; }
+
+/* ─── SERVICES ─── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.service-card {
+  background: var(--bg);
+  padding: 2.5rem 2rem;
+  transition: background .25s;
+  position: relative;
+}
+.service-card:hover { background: var(--bg3); }
+
+.service-num {
+  font-family: var(--mono);
+  font-size: .65rem;
+  color: var(--gold);
+  letter-spacing: .15em;
+  margin-bottom: 1.5rem;
+}
+
+.service-name {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+
+.service-desc {
+  font-size: .875rem;
+  color: var(--text2);
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+.service-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+.service-list li {
+  font-family: var(--mono);
+  font-size: .65rem;
+  color: var(--text3);
+  letter-spacing: .05em;
+  padding-left: .8rem;
+  position: relative;
+}
+.service-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+
+.service-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .35s ease;
+}
+.service-card:hover .service-bar { transform: scaleX(1); }
+
+/* ─── APPROACH / PHILOSOPHY ─── */
+.approach-wrap {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.approach-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 6rem;
+  align-items: start;
+}
+.approach-label {
+  font-family: var(--mono);
+  font-size: .65rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-top: .3rem;
+}
+.approach-quote {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--text);
+  margin-bottom: 2rem;
+}
+.approach-quote em { font-style: italic; color: var(--gold2); }
+.approach-body {
+  font-size: .9rem;
+  color: var(--text2);
+  line-height: 1.75;
+  max-width: 60ch;
+}
+
+/* ─── PROJECTS ─── */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-item {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: background .2s;
+  cursor: default;
+}
+.project-item:first-child { border-top: 1px solid var(--border); }
+.project-item:hover { background: var(--bg2); padding-left: 1rem; margin-left: -1rem; margin-right: -1rem; padding-right: 1rem; }
+
+.project-n {
+  font-family: var(--mono);
+  font-size: .65rem;
+  color: var(--text3);
+  padding-top: .25rem;
+}
+
+.project-tag-row {
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .5rem;
+}
+
+.project-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: .6rem;
+}
+
+.project-desc {
+  font-size: .85rem;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  max-width: 65ch;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .08em;
+  color: var(--text3);
+  border: 1px solid var(--border);
+  padding: .2rem .5rem;
+}
+
+.project-result {
+  text-align: right;
+  min-width: 6rem;
+}
+.result-val {
+  font-family: var(--mono);
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--gold2);
+  letter-spacing: -.02em;
+  display: block;
+  margin-bottom: .25rem;
+}
+.result-lbl {
+  font-size: .7rem;
+  color: var(--text3);
+  line-height: 1.4;
+}
+
+/* ─── ABOUT ─── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+.about-body p {
+  font-size: .95rem;
+  color: var(--text2);
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+.about-body p strong { color: var(--text); font-weight: 500; }
+.about-highlight {
+  border-left: 2px solid var(--gold);
+  padding: 1rem 1.5rem;
+  background: var(--bg2);
+  font-size: .9rem;
+  color: var(--text2);
+  line-height: 1.75;
+  margin: 1.5rem 0;
+}
+.about-highlight strong { color: var(--text); font-weight: 500; }
+
+.aside-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.aside-item {}
+.aside-lbl {
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: .4rem;
+}
+.aside-val {
+  font-size: .85rem;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.aside-val a { color: var(--gold); text-decoration: none; }
+
+.timeline { display: flex; flex-direction: column; gap: .75rem; }
+.tl-item {
+  display: flex;
+  gap: .75rem;
+  font-size: .8rem;
+}
+.tl-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  margin-top: .45em;
+}
+.tl-period { font-family: var(--mono); font-size: .65rem; color: var(--text3); }
+.tl-role { color: var(--text); font-weight: 400; font-size: .82rem; }
+.tl-org { color: var(--text3); font-size: .75rem; }
+
+/* ─── STACK ─── */
+.stack-section {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.stack-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 3rem;
+}
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+.stack-cell {
+  background: var(--bg2);
+  padding: 1.8rem 1.5rem;
+}
+.stack-cat {
+  font-family: var(--mono);
+  font-size: .65rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.stack-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+}
+.stack-items li {
+  font-size: .8rem;
+  color: var(--text2);
+}
+
+/* ─── CONTACT ─── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+.contact-note {
+  font-size: .95rem;
+  color: var(--text2);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+.contact-note strong { color: var(--text); font-weight: 500; }
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+}
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg2);
+  text-decoration: none;
+  transition: background .2s;
+}
+.contact-link:hover { background: var(--bg3); }
+.contact-icon {
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: var(--gold);
+  width: 1.5rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+.contact-lbl {
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: .2rem;
+}
+.contact-val {
+  font-size: .85rem;
+  color: var(--text);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+}
+.footer-name {
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--text3);
+}
+.footer-meta {
+  font-family: var(--mono);
+  font-size: .62rem;
+  color: var(--text3);
+  letter-spacing: .1em;
+}
+
+/* ─── REVEAL ANIMATION ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  nav { padding: 1.25rem 1.5rem; }
+  .nav-links { gap: 1.5rem; }
+  .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; gap: 3rem; }
+  .hero::after { display: none; }
+  section { padding: 5rem 1.5rem; }
+  .services-grid { grid-template-columns: 1fr; }
+  .approach-inner { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .stack-grid { grid-template-columns: 1fr 1fr; }
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  footer { flex-direction: column; gap: .75rem; text-align: center; padding: 2rem 1.5rem; }
+  .project-item { grid-template-columns: 2rem 1fr; }
+  .project-result { display: none; }
+}
+</style>
 </head>
 <body>
 
 <!-- ── NAV ── -->
 <nav id="nav">
-  <a href="#" class="nav-logo">EC</a>
+  <a href="#top" class="nav-logo">EC</a>
   <ul class="nav-links">
     <li><a href="#servizi">Servizi</a></li>
+    <li><a href="#lavori">Lavori</a></li>
     <li><a href="#about">Chi sono</a></li>
-    <li><a href="#projects">Lavori</a></li>
-    <li><a href="#articles">Articoli</a></li>
     <li><a href="#contact">Contatti</a></li>
   </ul>
 </nav>
@@ -25,118 +754,303 @@
 <!-- ── HERO ── -->
 <section class="hero" id="top">
   <div class="hero-left">
-    <p class="hero-label">Consulente in Controllo di Gestione</p>
-    <h1 class="hero-title">I numeri della<br>tua azienda,<br><em>finalmente chiari.</em></h1>
-    <p class="hero-sub">
-      Aiuto imprenditori e direzione a <strong>misurare, capire e governare</strong>
-      la propria azienda con strumenti quantitativi costruiti ad hoc —
-      non fogli Excel improvvisati, non consulenze generiche.
+    <p class="hero-eyebrow">Consulente Aziendale · Treviso</p>
+    <h1 class="hero-title">
+      I tuoi dati contengono<br>le risposte.<br>
+      <em>Ti aiuto a leggerle.</em>
+    </h1>
+    <p class="hero-body">
+      Lavoro con PMI e direzioni aziendali che vogliono <strong>misurare, capire e governare</strong>
+      la propria realtà con strumenti analitici costruiti su misura —
+      dall'integrazione dei dati alla decisione strategica.
     </p>
     <div class="hero-cta">
-      <a href="#servizi" class="btn-primary">Cosa faccio</a>
+      <a href="#servizi" class="btn-primary">Come lavoro</a>
       <a href="#contact" class="btn-ghost">Parliamo →</a>
     </div>
   </div>
-  <div class="hero-stats">
-    <div class="stat-cell">
-      <div class="stat-num">4+</div>
-      <div class="stat-desc">Anni in contesti aziendali strutturati</div>
+
+  <div class="hero-panel">
+    <div class="kpi-grid">
+      <div class="kpi-cell">
+        <div class="kpi-num">4+</div>
+        <div class="kpi-label">Anni in contesti strutturati, multinazionali incluse</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-num">−14%</div>
+        <div class="kpi-label">Riduzione costi operativi dimostrata con modello</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-num">3→1</div>
+        <div class="kpi-label">Gestionali eterogenei integrati in un unico layer</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-num">+10%</div>
+        <div class="kpi-label">EBITDA growth generato da interventi di consulenza</div>
+      </div>
     </div>
-    <div class="stat-cell">
-      <div class="stat-num">−14%</div>
-      <div class="stat-desc">Riduzione costi operativi dimostrata con modello</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-num">3→1</div>
-      <div class="stat-desc">Gestionali unificati in un unico layer dati</div>
-    </div>
-    <div class="stat-cell">
-      <div class="stat-num">+10%</div>
-      <div class="stat-desc">EBITDA growth generato da interventi di consulenza</div>
+    <div class="panel-footer">
+      <span class="panel-tag">Power BI</span>
+      <span class="panel-tag">Python ETL</span>
+      <span class="panel-tag">SQL</span>
+      <span class="panel-tag">Modellazione statistica</span>
     </div>
   </div>
 </section>
 
-<!-- ── SERVIZI ── -->
+<!-- ── VALUE PROP STRIP ── -->
+<div class="vp-strip">
+  <div class="vp-inner">
+    <span>Business Intelligence</span>
+    <span class="vp-sep">·</span>
+    <span>Controllo di Gestione</span>
+    <span class="vp-sep">·</span>
+    <span>ETL &amp; Data Integration</span>
+    <span class="vp-sep">·</span>
+    <span>Ottimizzazione Processi</span>
+    <span class="vp-sep">·</span>
+    <span>Forecast &amp; Pianificazione</span>
+    <span class="vp-sep">·</span>
+    <span>KPI Architecture</span>
+  </div>
+</div>
+
+<!-- ── SERVICES ── -->
 <section id="servizi">
   <p class="section-label reveal">Cosa faccio</p>
-  <h2 class="section-title reveal">Quattro aree.<br><em>Un solo interlocutore.</em></h2>
+  <h2 class="section-title reveal">Tre aree di intervento.<br><em>Un solo interlocutore.</em></h2>
+
   <div class="services-grid reveal">
 
     <div class="service-card">
       <div class="service-num">01</div>
-      <div class="service-name">Controllo di Gestione</div>
+      <div class="service-name">Analisi Dati &amp;<br>Business Intelligence</div>
       <p class="service-desc">
-        Costruisco sistemi di controllo su misura: margini per commessa o
-        prodotto, budget e consuntivo, variance analysis. Strumenti che la
-        direzione usa davvero — non report che finiscono in un cassetto.
+        Trasformo i dati dispersi nei tuoi sistemi in una vista unica, affidabile e leggibile.
+        Dall'integrazione delle fonti — gestionali, CRM, ERP — alle dashboard che rispondono
+        alle domande della direzione in tempo reale, senza intermediari.
       </p>
-      <div class="service-examples">
-        <span class="service-example">P&amp;L per commessa o centro di costo</span>
-        <span class="service-example">Budget operativo e finanziario</span>
-        <span class="service-example">Analisi scostamento previsto / consuntivo</span>
-        <span class="service-example">KPI direzionali e cruscotti</span>
-      </div>
+      <ul class="service-list">
+        <li>Pipeline ETL da fonti eterogenee</li>
+        <li>Dashboard KPI operative e strategiche in Power BI</li>
+        <li>Reportistica automatica verso la direzione</li>
+        <li>Data quality e normalizzazione</li>
+      </ul>
+      <div class="service-bar"></div>
     </div>
 
     <div class="service-card">
       <div class="service-num">02</div>
-      <div class="service-name">Reporting & Business Intelligence</div>
+      <div class="service-name">Controllo<br>di Gestione</div>
       <p class="service-desc">
-        Trasformo i dati già presenti nei tuoi sistemi in una vista unica,
-        affidabile e leggibile. Dall'integrazione delle fonti alla dashboard
-        che risponde alle domande della direzione in tempo reale.
+        Costruisco sistemi di controllo su misura: P&amp;L per commessa o prodotto,
+        budget e consuntivo, variance analysis. Strumenti che la direzione usa davvero —
+        non report che finiscono in un cassetto.
       </p>
-      <div class="service-examples">
-        <span class="service-example">Integrazione dati da gestionali eterogenei</span>
-        <span class="service-example">Dashboard KPI operative e strategiche</span>
-        <span class="service-example">Reportistica automatica verso la direzione</span>
-        <span class="service-example">Eliminazione dei fogli Excel duplicati</span>
-      </div>
+      <ul class="service-list">
+        <li>P&amp;L per commessa o centro di costo</li>
+        <li>Budget operativo e finanziario</li>
+        <li>Analisi scostamento previsto / consuntivo</li>
+        <li>Forecast ricavi con bande di confidenza</li>
+      </ul>
+      <div class="service-bar"></div>
     </div>
 
     <div class="service-card">
       <div class="service-num">03</div>
-      <div class="service-name">Ottimizzazione Operativa</div>
+      <div class="service-name">Ottimizzazione<br>Operativa</div>
       <p class="service-desc">
-        Analizzo i processi con metodo quantitativo per individuare dove si
-        perde efficienza, dove si spreca risorsa, dove si può ridurre il costo
-        senza perdere qualità o volume.
+        Analizzo i processi con metodo quantitativo per individuare dove si perde efficienza,
+        dove si spreca risorsa, dove si può ridurre il costo senza perdere qualità.
+        Evidenza prima, decisione poi.
       </p>
-      <div class="service-examples">
-        <span class="service-example">Mappatura e analisi dei flussi operativi</span>
-        <span class="service-example">Dimensionamento organizzativo con evidenza</span>
-        <span class="service-example">Riduzione costo del lavoro su commessa</span>
-        <span class="service-example">Digitalizzazione rilevazione costi di campo</span>
+      <ul class="service-list">
+        <li>Mappatura e analisi dei flussi operativi</li>
+        <li>Dimensionamento organizzativo con evidenza</li>
+        <li>Simulazioni scenari per il piano strategico</li>
+        <li>Digitalizzazione rilevazione costi di campo</li>
+      </ul>
+      <div class="service-bar"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── APPROACH ── -->
+<div class="approach-wrap">
+  <div class="approach-inner">
+    <div>
+      <p class="approach-label">Metodo</p>
+    </div>
+    <div>
+      <p class="approach-quote">
+        "Il dato grezzo non risponde a nessuna domanda.<br>
+        <em>Il modello giusto fa parlare i numeri al posto giusto, nel momento giusto.</em>"
+      </p>
+      <p class="approach-body">
+        Non coordino sviluppatori. Non produco deck di PowerPoint. Capisco il problema,
+        poi costruisco lo strumento — dall'analisi iniziale al rilascio in produzione.
+        Ogni modello è spiegabile, ogni dashboard è modificabile, ogni numero ha una fonte tracciabile.
+        <br><br>
+        Questo è ciò che distingue uno strumento che entra nella routine decisionale
+        da uno che viene usato una volta e dimenticato.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROJECTS ── -->
+<section id="lavori">
+  <p class="section-label reveal">Lavori selezionati</p>
+  <h2 class="section-title reveal">Problemi reali.<br><em>Soluzioni in produzione.</em></h2>
+
+  <div class="projects-list reveal">
+
+    <div class="project-item">
+      <div class="project-n">01</div>
+      <div>
+        <div class="project-tag-row">Controllo di Gestione</div>
+        <div class="project-title">Sistema P&amp;L per commessa — digitalizzazione costi operativi</div>
+        <p class="project-desc">
+          La direzione non aveva visibilità sui costi reali per cantiere: acquisti e ore venivano
+          tracciati su carta o chat informali. Ho progettato un sistema end-to-end: due web app mobile-first
+          per la rilevazione in campo, pipeline di consolidamento su SQLite, layer P&amp;L per commessa.
+          Oggi è lo strumento principale di controllo della direzione operativa.
+        </p>
+        <div class="tags">
+          <span class="tag">P&amp;L commessa</span>
+          <span class="tag">Digitalizzazione</span>
+          <span class="tag">Python</span>
+          <span class="tag">In produzione</span>
+        </div>
+      </div>
+      <div class="project-result">
+        <span class="result-val">0→1</span>
+        <div class="result-lbl">Controllo costi<br>costruito da zero</div>
       </div>
     </div>
 
-    <div class="service-card">
-      <div class="service-num">04</div>
-      <div class="service-name">Previsione & Pianificazione</div>
-      <p class="service-desc">
-        Modelli statistici e simulazioni per rispondere a domande concrete:
-        come andrà il fatturato? Quante risorse mi servono? Sto comprando
-        al momento giusto? Non opinioni — stime con bande di confidenza.
-      </p>
-      <div class="service-examples">
-        <span class="service-example">Forecast fatturato per cluster / mercato</span>
-        <span class="service-example">Simulazioni scenari per il piano strategico</span>
-        <span class="service-example">Modelli di dimensionamento workforce</span>
-        <span class="service-example">Segnali quantitativi per il procurement</span>
+    <div class="project-item">
+      <div class="project-n">02</div>
+      <div>
+        <div class="project-tag-row">Business Intelligence</div>
+        <div class="project-title">Pipeline ETL multi-gestionale — primo dataset ricavi unificato</div>
+        <p class="project-desc">
+          I dati di ricavo erano frammentati su tre gestionali eterogenei senza layer di integrazione.
+          Ho progettato e implementato una pipeline completa su PostgreSQL, costruendo il primo dataset
+          unificato dell'azienda da zero. È diventato la base di tutto il reporting BI direzionale.
+        </p>
+        <div class="tags">
+          <span class="tag">ETL</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Power BI</span>
+          <span class="tag">Reporting direzionale</span>
+        </div>
+      </div>
+      <div class="project-result">
+        <span class="result-val">3→1</span>
+        <div class="result-lbl">Gestionali<br>unificati</div>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-n">03</div>
+      <div>
+        <div class="project-tag-row">Ottimizzazione Operativa</div>
+        <div class="project-title">Modello dei flussi operativi — dimensionamento organizzativo</div>
+        <p class="project-desc">
+          Il management voleva capire se i livelli di organico fossero effettivamente necessari.
+          Ho modellato i flussi come sistema dinamico, mappando dipendenze tra task, picchi di carico
+          e vincoli di capacità. Il modello ha dimostrato che una riduzione del 14% degli FTE
+          era attuabile mantenendo gli output — abilitando un piano di riqualificazione anziché tagli.
+        </p>
+        <div class="tags">
+          <span class="tag">Workforce planning</span>
+          <span class="tag">Analisi capacità</span>
+          <span class="tag">Modellazione</span>
+          <span class="tag">In produzione</span>
+        </div>
+      </div>
+      <div class="project-result">
+        <span class="result-val">−14%</span>
+        <div class="result-lbl">FTE riduzione<br>dimostrata</div>
+      </div>
+    </div>
+
+    <div class="project-item">
+      <div class="project-n">04</div>
+      <div>
+        <div class="project-tag-row">Pianificazione Strategica</div>
+        <div class="project-title">Simulazione Monte Carlo — Forecast Fatturato FY2027</div>
+        <p class="project-desc">
+          La direzione finanziaria necessitava di una visione probabilistica del fatturato,
+          non di un'unica stima puntuale soggetta a bias. Ho costruito un motore di simulazione
+          che modella la distribuzione per cluster commerciale con bande di confidenza.
+          Oggi è input diretto della pianificazione strategica.
+        </p>
+        <div class="tags">
+          <span class="tag">Forecast ricavi</span>
+          <span class="tag">Monte Carlo</span>
+          <span class="tag">Python</span>
+          <span class="tag">Finance</span>
+        </div>
+      </div>
+      <div class="project-result">
+        <span class="result-val">FY27</span>
+        <div class="result-lbl">Input piano<br>strategico</div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ── PHILOSOPHY BREAK ── -->
-<div class="philosophy-wrap">
-  <div class="philosophy-inner reveal">
-    <div class="divider"></div>
-    <p class="philosophy-quote">"Non coordino sviluppatori. Non produco deck. Capisco il problema, poi costruisco lo strumento — dall'analisi al rilascio in produzione."</p>
-    <div class="divider"></div>
-    <p class="philosophy-note">— Il principio dietro ogni incarico</p>
+<!-- ── STACK ── -->
+<div class="stack-section">
+  <div class="stack-inner">
+    <p class="section-label reveal">Stack tecnico</p>
+    <h2 class="section-title reveal" style="margin-bottom:2.5rem;">Gli strumenti<br><em>dietro ogni lavoro.</em></h2>
+    <div class="stack-grid reveal">
+      <div class="stack-cell">
+        <div class="stack-cat">Linguaggi</div>
+        <ul class="stack-items">
+          <li>Python (primario)</li>
+          <li>SQL (avanzato)</li>
+          <li>M Language · Power Query</li>
+          <li>DAX · Power BI</li>
+          <li>VBA · Excel avanzato</li>
+        </ul>
+      </div>
+      <div class="stack-cell">
+        <div class="stack-cat">BI & Dati</div>
+        <ul class="stack-items">
+          <li>Power BI</li>
+          <li>PostgreSQL · Oracle · SQLite</li>
+          <li>pandas · numpy</li>
+          <li>ETL pipeline design</li>
+          <li>Data quality & normalizzazione</li>
+        </ul>
+      </div>
+      <div class="stack-cell">
+        <div class="stack-cat">Modellazione</div>
+        <ul class="stack-items">
+          <li>Simulazione Monte Carlo</li>
+          <li>Time series · Prophet</li>
+          <li>Regressione logistica</li>
+          <li>Sistemi ODE (SciPy)</li>
+          <li>Processi stocastici</li>
+        </ul>
+      </div>
+      <div class="stack-cell">
+        <div class="stack-cat">Processo</div>
+        <ul class="stack-items">
+          <li>Controllo di gestione</li>
+          <li>KPI architecture</li>
+          <li>Process mapping &amp; Lean</li>
+          <li>Budget &amp; forecasting</li>
+          <li>Variance analysis</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -147,355 +1061,133 @@
   <div class="about-grid">
     <div class="about-body reveal">
       <p>
-        Mi chiamo Edoardo Crema e lavoro come consulente in controllo di gestione
-        e analisi quantitativa, con sede a Treviso. Supporto PMI e organizzazioni
-        strutturate che vogliono governare la propria azienda con gli stessi
-        strumenti analitici delle grandi imprese — senza la complessità e i costi di
-        una struttura interna dedicata.
+        Mi chiamo <strong>Edoardo Crema</strong> e lavoro come consulente in analisi dati,
+        controllo di gestione e business intelligence, con sede a Treviso.
+        Supporto PMI e organizzazioni strutturate che vogliono governare la propria azienda
+        con gli stessi strumenti analitici delle grandi imprese — senza la complessità e i costi
+        di una struttura interna dedicata.
       </p>
       <p>
         Il mio approccio è end-to-end: mi occupo del problema dall'analisi iniziale
-        fino allo strumento in produzione. <strong>Nessun intermediario, nessuna
-        black box</strong> — ogni modello è spiegabile, ogni dashboard è modificabile,
-        ogni numero ha una fonte tracciabile.
+        fino allo strumento in produzione. <strong>Nessun intermediario, nessuna black box</strong>:
+        ogni modello è spiegabile, ogni dashboard è modificabile, ogni numero ha una fonte tracciabile.
       </p>
-      <div class="highlight">
-        Ho una formazione deliberatamente trasversale: <strong>Laurea Magistrale in
-        Filosofia</strong> (Ca' Foscari, 110L) e <strong>Ingegneria Gestionale</strong>
-        attualmente in corso (Udine). La filosofia mi ha dato il metodo per scomporre
-        problemi complessi. L'ingegneria gestionale mi dà il linguaggio quantitativo.
+      <div class="about-highlight">
+        Ho una formazione deliberatamente trasversale: <strong>Laurea Magistrale in Filosofia</strong>
+        (Ca' Foscari, 110L) e <strong>Ingegneria Gestionale</strong> attualmente in corso (Udine).
+        La filosofia mi ha dato il metodo per scomporre problemi complessi.
+        L'ingegneria gestionale mi dà il linguaggio quantitativo.
         I dati sono dove i due convergono in qualcosa di utile.
       </div>
       <p>
-        Prima di lavorare in libera professione, ho trascorso quattro anni in contesti
-        aziendali strutturati — tra cui una multinazionale del testing analitico —
-        dove ho costruito modelli predittivi in produzione, pipeline ETL multi-gestionale
-        e strumenti di pianificazione strategica per la dirigenza.
+        Prima della libera professione, quattro anni in contesti aziendali strutturati —
+        tra cui una multinazionale del testing analitico — dove ho costruito modelli predittivi
+        in produzione, pipeline ETL multi-gestionale e strumenti di pianificazione strategica per la dirigenza.
       </p>
     </div>
     <div class="about-aside reveal">
-      <div class="aside-item">
-        <div class="aside-label">Attività</div>
-        <div class="aside-value">Consulente in Controllo di Gestione<br>e Analisi Quantitativa — Libera Professione</div>
-      </div>
-      <div class="aside-item">
-        <div class="aside-label">Sede</div>
-        <div class="aside-value">Treviso, Veneto — disponibile da remoto e in presenza nel Nord-Est</div>
-      </div>
-      <div class="aside-item">
-        <div class="aside-label">Formazione</div>
-        <div class="aside-value">
-          Ingegneria Gestionale — Udine (in corso)<br>
-          Laurea Magistrale in Filosofia — Ca' Foscari (110L)<br>
-          Laurea Triennale in Filosofia — Ca' Foscari (110)
+      <div class="aside-block">
+        <div class="aside-item">
+          <div class="aside-lbl">Ruolo</div>
+          <div class="aside-val">Consulente in Analisi Dati, BI<br>e Controllo di Gestione</div>
         </div>
-      </div>
-
-      <div class="timeline">
-        <div class="timeline-block">
-          <div class="timeline-block-label">Esperienza</div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div style="padding-left:1rem;">
-              <div class="tl-period">2026 — oggi</div>
-              <div class="tl-role">Consulente — Libera Professione</div>
-              <div class="tl-org">PMI · Nord-Est Italia</div>
+        <div class="aside-item">
+          <div class="aside-lbl">Sede</div>
+          <div class="aside-val">Treviso, Veneto<br>Disponibile in presenza nel Nord-Est e da remoto</div>
+        </div>
+        <div class="aside-item">
+          <div class="aside-lbl">Esperienza</div>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div>
+                <div class="tl-period">2026 — oggi</div>
+                <div class="tl-role">Consulente — Libera Professione</div>
+                <div class="tl-org">PMI · Nord-Est Italia</div>
+              </div>
             </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div style="padding-left:1rem;">
-              <div class="tl-period">2023 — 2026</div>
-              <div class="tl-role">Data Analyst & Data Scientist</div>
-              <div class="tl-org">Mérieux NutriSciences · Resana (TV)</div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div>
+                <div class="tl-period">2023 — 2026</div>
+                <div class="tl-role">Data Analyst &amp; Data Scientist</div>
+                <div class="tl-org">Mérieux NutriSciences · Resana (TV)</div>
+              </div>
             </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div style="padding-left:1rem;">
-              <div class="tl-period">2022 — 2023</div>
-              <div class="tl-role">HR Cost Controller</div>
-              <div class="tl-org">Replay · Asolo (TV)</div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div>
+                <div class="tl-period">2022 — 2023</div>
+                <div class="tl-role">HR Cost Controller</div>
+                <div class="tl-org">Replay · Asolo (TV)</div>
+              </div>
             </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div style="padding-left:1rem;">
-              <div class="tl-period">2020 — 2022</div>
-              <div class="tl-role">Process & HR Data Analyst</div>
-              <div class="tl-org">Mérieux NutriSciences · Resana (TV)</div>
+            <div class="tl-item">
+              <div class="tl-dot"></div>
+              <div>
+                <div class="tl-period">2020 — 2022</div>
+                <div class="tl-role">Process &amp; HR Data Analyst</div>
+                <div class="tl-org">Mérieux NutriSciences · Resana (TV)</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="aside-item" style="margin-top:.5rem;">
-        <div class="aside-label">GitHub</div>
-        <div class="aside-value"><a href="https://github.com/edoardo2496">github.com/edoardo2496</a></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── PROJECTS ── -->
-<section id="projects">
-  <p class="section-label reveal">Lavori selezionati</p>
-  <h2 class="section-title reveal">Problemi reali.<br><em>Soluzioni in produzione.</em></h2>
-  <div class="projects-list reveal">
-
-    <div class="project-item">
-      <div class="project-num">01</div>
-      <div>
-        <div class="project-problem">Controllo di gestione → costi per commessa</div>
-        <div class="project-title">Sistema P&amp;L per commessa — digitalizzazione e controllo costi operativi</div>
-        <p class="project-desc">
-          La direzione non aveva visibilità sui costi reali per cantiere: acquisti e ore lavorate
-          venivano tracciati su carta o chat informali. Ho progettato e costruito un sistema end-to-end:
-          due web app mobile-first per la rilevazione in campo, pipeline di consolidamento su SQLite
-          e layer di P&amp;L per commessa. Oggi è lo strumento principale di controllo della direzione operativa.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Controllo costi</span><span class="tag">P&amp;L commessa</span>
-          <span class="tag">Digitalizzazione</span><span class="tag">In produzione</span>
+        <div class="aside-item">
+          <div class="aside-lbl">Portfolio</div>
+          <div class="aside-val"><a href="https://edoardo2496.github.io/" target="_blank">edoardo2496.github.io</a></div>
+        </div>
+        <div class="aside-item">
+          <div class="aside-lbl">GitHub</div>
+          <div class="aside-val"><a href="https://github.com/edoardo2496" target="_blank">github.com/edoardo2496</a></div>
         </div>
       </div>
-      <div class="project-result">
-        <div class="result-value">0→1</div>
-        <div class="result-label">Controllo costi<br>costruito da zero</div>
-      </div>
     </div>
-
-    <div class="project-item">
-      <div class="project-num">02</div>
-      <div>
-        <div class="project-problem">Pianificazione strategica → forecast ricavi</div>
-        <div class="project-title">Simulazione Monte Carlo — Forecast Fatturato FY2027</div>
-        <p class="project-desc">
-          La direzione finanziaria necessitava di una visione probabilistica del fatturato atteso,
-          non di un'unica stima puntuale soggetta a bias. Ho costruito un motore di simulazione
-          che modella la distribuzione del fatturato per cluster commerciale. L'output — distribuzioni
-          con bande di confidenza per cluster — è diventato input diretto della pianificazione strategica.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Forecast ricavi</span><span class="tag">Pianificazione strategica</span>
-          <span class="tag">Analisi scenari</span><span class="tag">Finance</span>
-        </div>
-      </div>
-      <div class="project-result">
-        <div class="result-value">FY27</div>
-        <div class="result-label">Input diretto<br>piano strategico</div>
-      </div>
-    </div>
-
-    <div class="project-item">
-      <div class="project-num">03</div>
-      <div>
-        <div class="project-problem">Ottimizzazione operativa → dimensionamento workforce</div>
-        <div class="project-title">Modello dei flussi operativi — analisi capacità e dimensionamento organizzativo</div>
-        <p class="project-desc">
-          Il management voleva capire se i livelli di organico fossero effettivamente necessari.
-          Ho modellato i flussi di lavoro del dipartimento come sistema dinamico, mappando
-          dipendenze tra task, picchi di carico e vincoli di capacità. Il modello ha dimostrato
-          che una riduzione del 14% degli FTE era attuabile mantenendo gli output — abilitando
-          un piano di riqualificazione anziché tagli.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Workforce planning</span><span class="tag">Analisi capacità</span>
-          <span class="tag">Ottimizzazione costi</span><span class="tag">In produzione</span>
-        </div>
-      </div>
-      <div class="project-result">
-        <div class="result-value">−14%</div>
-        <div class="result-label">FTE riduzione<br>dimostrata</div>
-      </div>
-    </div>
-
-    <div class="project-item">
-      <div class="project-num">04</div>
-      <div>
-        <div class="project-problem">Reporting direzionale → infrastruttura dati</div>
-        <div class="project-title">Pipeline ETL multi-gestionale — primo dataset ricavi unificato</div>
-        <p class="project-desc">
-          I dati di ricavo erano frammentati su tre gestionali eterogenei senza layer di integrazione.
-          Ho progettato e implementato una pipeline completa di estrazione, trasformazione e caricamento
-          su PostgreSQL, costruendo il primo dataset ricavi unificato dell'azienda partendo da zero.
-          È diventato la base di tutto il reporting BI direzionale.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Integrazione gestionali</span><span class="tag">Reporting direzionale</span>
-          <span class="tag">Data architecture</span><span class="tag">ETL</span>
-        </div>
-      </div>
-      <div class="project-result">
-        <div class="result-value">3→1</div>
-        <div class="result-label">Gestionali unificati<br>da zero</div>
-      </div>
-    </div>
-
-    <div class="project-item">
-      <div class="project-num">05</div>
-      <div>
-        <div class="project-problem">HR & talent → ottimizzazione costo di selezione</div>
-        <div class="project-title">Modello predittivo di retention — supporto alla strategia di recruiting</div>
-        <p class="project-desc">
-          L'HR investiva ugualmente su tutti i candidati senza distinguere chi avrebbe avuto
-          maggiori probabilità di restare. Ho costruito un modello di classificazione addestrato
-          su dati storici per stimare la probabilità di permanenza al momento della selezione.
-          Oggi orienta la strategia di recruiting verso profili ad alta retention.
-        </p>
-        <div class="project-tags">
-          <span class="tag">HR analytics</span><span class="tag">Costo di attrition</span>
-          <span class="tag">Modello predittivo</span><span class="tag">In produzione</span>
-        </div>
-      </div>
-      <div class="project-result">
-        <div class="result-value">Live</div>
-        <div class="result-label">Guida la strategia<br>di recruiting</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── STACK ── -->
-<section id="stack">
-  <p class="section-label reveal">Strumenti</p>
-  <h2 class="section-title reveal">Lo stack tecnico<br><em>dietro ogni lavoro.</em></h2>
-  <div class="stack-grid reveal">
-    <div class="stack-cell">
-      <div class="stack-category">Linguaggi</div>
-      <ul class="stack-items">
-        <li>Python (primario)</li>
-        <li>SQL (avanzato)</li>
-        <li>R / RStudio</li>
-        <li>M Language (PowerQuery)</li>
-        <li>DMX (cubi OLAP)</li>
-      </ul>
-    </div>
-    <div class="stack-cell">
-      <div class="stack-category">Modellazione</div>
-      <ul class="stack-items">
-        <li>Sistemi ODE (SciPy)</li>
-        <li>Simulazione Monte Carlo</li>
-        <li>Regressione logistica</li>
-        <li>Time series / Prophet</li>
-        <li>Processi stocastici</li>
-      </ul>
-    </div>
-    <div class="stack-cell">
-      <div class="stack-category">Dati & BI</div>
-      <ul class="stack-items">
-        <li>PostgreSQL · Oracle · SQLite</li>
-        <li>Power BI · Superset · Looker</li>
-        <li>pandas · numpy · scikit-learn</li>
-        <li>ETL pipeline design</li>
-      </ul>
-    </div>
-    <div class="stack-cell">
-      <div class="stack-category">Processo</div>
-      <ul class="stack-items">
-        <li>Controllo di gestione</li>
-        <li>Process mapping & Lean</li>
-        <li>Architettura KPI</li>
-        <li>Git · Jupyter</li>
-        <li>Excel avanzato</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ── ARTICLES ── -->
-<section id="articles">
-  <p class="section-label reveal">Articoli</p>
-  <h2 class="section-title reveal">Pensiero rigoroso,<br><em>applicato.</em></h2>
-  <div class="articles-list reveal">
-
-    <div class="article-card" onclick="window.open('https://edoardo2496.github.io/data_science_portfolio/stochastic_iro_ore_model/index.html','_blank')">
-      <div class="article-num">01</div>
-      <div>
-        <div class="article-meta"><span>Finanza & Procurement</span> Apr 2025 · 12 min</div>
-        <div class="article-title">Quando il prezzo del minerale di ferro dice di comprare: mean-reversion, Lemma di Itô e un segnale procurement in tempo reale</div>
-        <p class="article-abstract">
-          I prezzi delle commodity non seguono un random walk: hanno memoria. Mostro come
-          modellare il processo di prezzo come SDE di Ornstein-Uhlenbeck, calibrarlo su 20 anni
-          di dati e costruire uno Z-score che segnala quando il prezzo spot è un'anomalia
-          statistica su cui agire.
-        </p>
-        <div class="project-tags">
-          <span class="tag">Procurement</span><span class="tag">Modellazione stocastica</span>
-          <span class="tag">Finanza quantitativa</span>
-        </div>
-      </div>
-      <div class="article-arrow">→</div>
-    </div>
-
-    <div class="article-card" style="opacity:.38; cursor:default; pointer-events:none;">
-      <div class="article-num">02</div>
-      <div>
-        <div class="article-meta"><span>Operations Research</span> In arrivo</div>
-        <div class="article-title">Flussi operativi come sistema dinamico: come il modello ODE cambia la risposta alla domanda sull'organico ottimale</div>
-        <p class="article-abstract">
-          Trattare il carico di lavoro di un dipartimento come sistema a tempo continuo produce
-          una risposta radicalmente diversa alla domanda su quante persone servono davvero.
-        </p>
-      </div>
-      <div class="article-arrow" style="color:var(--border)">→</div>
-    </div>
-
-    <div class="article-card" style="opacity:.38; cursor:default; pointer-events:none;">
-      <div class="article-num">03</div>
-      <div>
-        <div class="article-meta"><span>HR Analytics</span> In arrivo</div>
-        <div class="article-title">L'attrition come probabilità: un modello che orienta il recruiting prima del giorno uno</div>
-        <p class="article-abstract">
-          Un modello di classificazione che stima la probabilità di permanenza al momento
-          della selezione — e perché la feature engineering conta più dell'algoritmo.
-        </p>
-      </div>
-      <div class="article-arrow" style="color:var(--border)">→</div>
-    </div>
-
   </div>
 </section>
 
 <!-- ── CONTACT ── -->
 <section id="contact">
   <p class="section-label reveal">Contatti</p>
-  <h2 class="section-title reveal">Hai un problema<br>da <em>misurare e risolvere?</em></h2>
+  <h2 class="section-title reveal">Hai un problema<br><em>da misurare e risolvere?</em></h2>
   <div class="contact-grid">
     <div class="reveal">
       <p class="contact-note">
-        Sono disponibile per <strong>incarichi di consulenza</strong> su controllo di gestione,
-        reporting direzionale, ottimizzazione operativa e modellazione previsionale.
-        Se stai cercando qualcuno che capisca il problema prima di aprire un file,
-        parliamone — il primo passo è sempre una conversazione.
+        Sono disponibile per <strong>incarichi di consulenza</strong> su analisi dati,
+        business intelligence, controllo di gestione e ottimizzazione operativa.
+        <br><br>
+        Se stai cercando qualcuno che capisca il problema prima di aprire un file —
+        che costruisca strumenti usati davvero, non reportistica decorativa —
+        il primo passo è una conversazione.
       </p>
       <a href="mailto:edoardo.crema@outlook.it" class="btn-primary">Scrivimi</a>
     </div>
     <div class="contact-links reveal">
       <a href="mailto:edoardo.crema@outlook.it" class="contact-link">
-        <div class="contact-link-icon">✉</div>
+        <div class="contact-icon">✉</div>
         <div>
-          <div class="contact-link-label">Email</div>
-          <div class="contact-link-value">edoardo.crema@outlook.it</div>
+          <div class="contact-lbl">Email</div>
+          <div class="contact-val">edoardo.crema@outlook.it</div>
         </div>
       </a>
       <a href="tel:+393388601102" class="contact-link">
-        <div class="contact-link-icon">◎</div>
+        <div class="contact-icon">◎</div>
         <div>
-          <div class="contact-link-label">Telefono</div>
-          <div class="contact-link-value">+39 338 860 1102</div>
+          <div class="contact-lbl">Telefono</div>
+          <div class="contact-val">+39 338 860 1102</div>
+        </div>
+      </a>
+      <a href="https://edoardo2496.github.io/" class="contact-link" target="_blank">
+        <div class="contact-icon">⊕</div>
+        <div>
+          <div class="contact-lbl">Portfolio</div>
+          <div class="contact-val">edoardo2496.github.io</div>
         </div>
       </a>
       <a href="https://github.com/edoardo2496" class="contact-link" target="_blank">
-        <div class="contact-link-icon">⌥</div>
+        <div class="contact-icon">⌥</div>
         <div>
-          <div class="contact-link-label">GitHub</div>
-          <div class="contact-link-value">github.com/edoardo2496</div>
+          <div class="contact-lbl">GitHub</div>
+          <div class="contact-val">github.com/edoardo2496</div>
         </div>
       </a>
     </div>
@@ -504,10 +1196,48 @@
 
 <!-- ── FOOTER ── -->
 <footer>
-  <span>Edoardo Crema · Treviso, Italia</span>
-  <span>Consulente in Controllo di Gestione e Analisi Quantitativa</span>
+  <span class="footer-name">Edoardo Crema</span>
+  <span class="footer-meta">Analisi Dati · Business Intelligence · Controllo di Gestione · Treviso, Italia</span>
 </footer>
 
-<script src="app.js"></script>
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Hero stagger on load
+document.querySelectorAll('.hero-left > *').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = `opacity .7s ease ${i * 0.12}s, transform .7s ease ${i * 0.12}s`;
+  setTimeout(() => {
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+  }, 100);
+});
+
+document.querySelector('.hero-panel').style.cssText = `
+  opacity:0; transform:translateY(20px);
+  transition: opacity .7s ease .5s, transform .7s ease .5s;
+`;
+setTimeout(() => {
+  document.querySelector('.hero-panel').style.opacity = '1';
+  document.querySelector('.hero-panel').style.transform = 'translateY(0)';
+}, 100);
+</script>
 </body>
 </html>

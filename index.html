@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edoardo Crema - Consulente Aziendale</title>
+    <title>Edoardo Crema — Strategic Data Consultant</title>
     
-    <!-- Fonts: Inter per UI, Playfair per Eleganza, JetBrains per Technicality -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 
@@ -22,9 +22,10 @@
             --font-sans: 'Inter', sans-serif;
             --font-serif: 'Playfair Display', serif;
             --font-mono: 'JetBrains Mono', monospace;
+            --nav-height: 70px;
         }
 
-        /* --- Global Resets --- */
+        /* --- Reset & Global --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; background: var(--bg-primary); }
         body {
@@ -35,628 +36,428 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Background Canvas --- */
         #data-bg {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: -1;
-            opacity: 0.3;
+            opacity: 0.2;
             pointer-events: none;
         }
 
-        /* --- Navigation --- */
+        /* --- Navigation Mobile First --- */
         nav {
             position: fixed;
             top: 0; width: 100%;
-            padding: 2rem 4rem;
+            height: var(--nav-height);
+            padding: 0 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        nav.scrolled {
-            padding: 1.2rem 4rem;
-            background: rgba(10, 12, 16, 0.85);
-            backdrop-filter: blur(20px);
+            background: rgba(10, 12, 16, 0.8);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
         }
+
         .logo {
             font-family: var(--font-serif);
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 600;
             text-decoration: none;
             color: var(--text-primary);
-            letter-spacing: -0.02em;
         }
+
+        /* Hamburger Menu */
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -5px); }
+
         .nav-links {
+            position: fixed;
+            top: 0; right: -100%;
+            width: 80%; height: 100vh;
+            background: var(--bg-secondary);
             display: flex;
-            gap: 3rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
             list-style: none;
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 1px solid var(--border);
         }
+        .nav-links.active { right: 0; }
         .nav-links a {
             font-family: var(--font-mono);
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
             text-decoration: none;
             color: var(--text-secondary);
-            letter-spacing: 0.12em;
-            transition: color 0.3s;
+            letter-spacing: 0.15em;
         }
-        .nav-links a:hover { color: var(--accent); }
 
-        /* --- Hero Section --- */
+        /* --- Hero Section Mobile First --- */
         .hero {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 4rem;
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: calc(var(--nav-height) + 2rem) 1.5rem 4rem;
         }
         .hero-meta {
             font-family: var(--font-mono);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--accent);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
+            gap: 0.8rem;
         }
-        .hero-meta::before {
-            content: '';
-            width: 40px; height: 1px;
-            background: var(--accent);
-        }
+        .hero-meta::before { content: ''; width: 25px; height: 1px; background: var(--accent); }
+        
         .hero h1 {
             font-family: var(--font-serif);
-            font-size: clamp(3.5rem, 8vw, 6rem);
-            line-height: 0.95;
+            font-size: clamp(2.5rem, 12vw, 5rem);
+            line-height: 1.1;
             font-weight: 400;
-            margin-bottom: 2.5rem;
-            letter-spacing: -0.03em;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
         }
-        .hero h1 span {
-            display: block;
-            color: var(--text-muted);
-            font-style: italic;
-        }
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 4rem;
-            align-items: flex-end;
-        }
+        .hero h1 span { display: block; color: var(--text-muted); font-style: italic; }
+        
         .hero-description {
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
-            max-width: 520px;
             font-weight: 300;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
         }
         .hero-cta {
             display: flex;
-            gap: 1.5rem;
-            margin-top: 3rem;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         /* --- Buttons --- */
         .btn {
-            padding: 1.1rem 2.2rem;
+            padding: 1.1rem 2rem;
             font-family: var(--font-mono);
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            display: inline-block;
+            text-align: center;
+            transition: 0.3s;
         }
-        .btn-primary {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-        }
-        .btn-primary:hover {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-2px);
-        }
-        .btn-outline {
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-        }
-        .btn-outline:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: var(--accent-soft);
-        }
+        .btn-primary { background: var(--text-primary); color: var(--bg-primary); }
+        .btn-outline { border: 1px solid var(--border); color: var(--text-primary); }
 
-        /* --- Section Styling --- */
-        section {
-            padding: 10rem 4rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .section-header {
-            margin-bottom: 5rem;
-        }
-        .section-tag {
-            font-family: var(--font-mono);
-            color: var(--accent);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            display: block;
-            letter-spacing: 0.15em;
-        }
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 400;
-            line-height: 1.1;
-        }
-
-        /* --- KPI Grid --- */
+        /* --- KPI Strip Mobile First --- */
+        .kpi-section { padding: 0 1.5rem; margin-top: -2rem; position: relative; z-index: 10; }
         .kpi-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             border: 1px solid var(--border);
             background: var(--bg-secondary);
         }
         .kpi-item {
-            padding: 3.5rem 2rem;
+            padding: 2rem 1rem;
+            border-bottom: 1px solid var(--border);
             border-right: 1px solid var(--border);
             text-align: center;
         }
-        .kpi-item:last-child { border-right: none; }
-        .kpi-val {
-            font-family: var(--font-serif);
-            font-size: 3.5rem;
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-        }
-        .kpi-label {
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            line-height: 1.4;
-        }
+        .kpi-item:nth-child(even) { border-right: none; }
+        .kpi-item:nth-last-child(-n+2) { border-bottom: none; }
+        .kpi-val { font-family: var(--font-serif); font-size: 2.2rem; color: var(--accent); display: block; }
+        .kpi-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--text-muted); text-transform: uppercase; }
 
-        /* --- Services Grid --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
+        /* --- Sections --- */
+        section { padding: 5rem 1.5rem; }
+        .section-tag { font-family: var(--font-mono); color: var(--accent); font-size: 0.7rem; text-transform: uppercase; margin-bottom: 0.8rem; display: block; }
+        .section-title { font-family: var(--font-serif); font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.2; font-weight: 400; }
+        .section-header { margin-bottom: 3rem; }
+
+        /* --- Services --- */
+        .services-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
         .service-card {
             background: var(--bg-secondary);
-            padding: 4rem 2.5rem;
+            padding: 3rem 2rem;
             border: 1px solid var(--border);
-            transition: all 0.4s;
-            display: flex;
-            flex-direction: column;
         }
-        .service-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            background: #161a23;
-        }
-        .service-icon {
-            color: var(--accent);
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
-            font-family: var(--font-mono);
-        }
-        .service-card h3 {
-            font-family: var(--font-serif);
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            font-weight: 400;
-            line-height: 1.2;
-        }
-        .service-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-        .service-features {
-            list-style: none;
-            margin-top: auto;
-        }
-        .service-features li {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 0.6rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        .service-features li::before {
-            content: '';
-            width: 4px; height: 4px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
+        .service-icon { color: var(--accent); font-family: var(--font-mono); font-size: 0.9rem; margin-bottom: 1.5rem; display: block; }
+        .service-card h3 { font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 1rem; }
+        .service-card p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
+        .service-features { list-style: none; }
+        .service-features li { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .service-features li::before { content: ''; width: 3px; height: 3px; background: var(--accent); border-radius: 50%; }
 
-        /* --- Project List --- */
+        /* --- Projects --- */
         .project-row {
-            display: grid;
-            grid-template-columns: 80px 1fr 200px;
-            padding: 3rem 0;
+            display: block;
+            padding: 2rem 0;
             border-bottom: 1px solid var(--border);
-            transition: all 0.3s;
-            align-items: center;
             text-decoration: none;
             color: inherit;
         }
-        .project-row:hover {
-            background: var(--accent-soft);
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-        }
-        .project-row .index {
-            font-family: var(--font-mono);
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-        .project-info h4 {
-            font-family: var(--font-serif);
-            font-size: 1.6rem;
-            margin-bottom: 0.4rem;
-            font-weight: 400;
-        }
-        .project-info p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            max-width: 600px;
-        }
-        .project-result {
-            text-align: right;
-            font-family: var(--font-mono);
-        }
-        .project-result .val {
-            display: block;
-            font-size: 1.3rem;
-            color: var(--accent);
-            margin-bottom: 0.2rem;
-        }
-        .project-result .company {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
+        .project-info h4 { font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .project-info p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem; }
+        .project-result { display: flex; justify-content: space-between; align-items: center; }
+        .project-result .val { font-family: var(--font-mono); font-size: 1rem; color: var(--accent); }
+        .project-result .company { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); }
 
-        /* --- About Grid --- */
-        .about-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-            align-items: flex-start;
-        }
-        .about-text p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-        .experience-timeline {
-            border-left: 1px solid var(--border);
-            padding-left: 2.5rem;
-        }
-        .timeline-item {
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2.85rem;
-            top: 0.4rem;
-            width: 8px; height: 8px;
-            background: var(--bg-primary);
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-        }
-        .time {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--accent);
-            display: block;
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.05em;
-        }
-        .role { font-weight: 500; font-size: 1.1rem; display: block; margin-bottom: 0.2rem; }
-        .company { color: var(--text-muted); font-size: 0.9rem; font-style: italic; }
+        /* --- About --- */
+        .about-layout { display: flex; flex-direction: column; gap: 4rem; }
+        .experience-timeline { border-left: 1px solid var(--border); padding-left: 1.5rem; }
+        .timeline-item { margin-bottom: 2.5rem; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: -1.75rem; top: 0.4rem; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+        .time { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); }
+        .role { display: block; font-weight: 500; font-size: 1rem; margin-top: 0.2rem; }
+        .company-label { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
 
         /* --- Footer --- */
-        footer {
-            padding: 5rem 4rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--bg-secondary);
-        }
-        .footer-logo { font-family: var(--font-serif); font-size: 1.2rem; }
-        .footer-copy { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.05em; }
+        footer { padding: 4rem 1.5rem; background: var(--bg-secondary); border-top: 1px solid var(--border); text-align: center; }
+        .footer-logo { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 1rem; }
+        .footer-copy { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); margin-top: 2rem; }
 
-        /* --- Responsive --- */
-        @media (max-width: 1024px) {
-            .hero-content, .about-layout, .services-grid { grid-template-columns: 1fr; }
-            .kpi-container { grid-template-columns: repeat(2, 1fr); }
-            nav { padding: 1.5rem 2rem; }
-            .hero { padding: 0 2rem; }
-            section { padding: 6rem 2rem; }
-            .project-row { grid-template-columns: 1fr auto; gap: 1rem; }
-            .project-row .index { display: none; }
-            footer { flex-direction: column; gap: 2rem; text-align: center; }
+        /* --- DESKTOP REFINEMENTS (Media Queries) --- */
+        @media (min-width: 768px) {
+            nav { padding: 0 4rem; height: 90px; }
+            .menu-toggle { display: none; }
+            .nav-links {
+                position: static;
+                height: auto; width: auto;
+                background: transparent;
+                flex-direction: row;
+                border: none;
+                gap: 3rem;
+            }
+            .nav-links a { font-size: 0.7rem; }
+            
+            .hero { padding: 0 4rem; align-items: flex-start; }
+            .hero h1 { font-size: 5rem; }
+            .hero-cta { flex-direction: row; }
+            
+            .kpi-section { padding: 0 4rem; }
+            .kpi-container { grid-template-columns: repeat(4, 1fr); }
+            .kpi-item { border-bottom: none; }
+            .kpi-item:last-child { border-right: none; }
+
+            section { padding: 8rem 4rem; max-width: 1400px; margin: 0 auto; }
+            .services-grid { grid-template-columns: repeat(3, 1fr); }
+            .project-row { display: grid; grid-template-columns: 1fr 200px; align-items: center; padding: 3rem 0; }
+            .project-result { flex-direction: column; align-items: flex-end; text-align: right; }
+            
+            .about-layout { flex-direction: row; align-items: flex-start; }
+            .about-text { flex: 1.2; }
+            .experience-timeline { flex: 0.8; }
+            
+            footer { display: flex; justify-content: space-between; text-align: left; padding: 5rem 4rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Sfondo Animato -->
     <canvas id="data-bg"></canvas>
 
-    <!-- Navigazione -->
     <nav id="navbar">
         <a href="#" class="logo">Edoardo Crema</a>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <ul class="nav-links">
             <li><a href="#services">Servizi</a></li>
             <li><a href="#work">Progetti</a></li>
-            <li><a href="#papers">Articoli</a></li>
-            <li><a href="#about">Esperienza</a></li>
+            <li><a href="#about">Chi Sono</a></li>
             <li><a href="#contact">Contatti</a></li>
         </ul>
     </nav>
 
-    <!-- Hero -->
     <section class="hero" id="home">
-        <div class="hero-meta">Consulenza Strategica</div>
-        <h1>
-            Decifrare la complessità di dati.
-            <span>Guidare la crescita.</span>
-        </h1>
-        <div class="hero-content">
-            <div>
-                <p class="hero-description">
-                    Aiuto le Aziende a trasformare i propri dati in una leva strategica
-                </p>
-                <div class="hero-cta">
-                    <a href="#work" class="btn btn-primary">Vedi i Casi Studio</a>
-                    <a href="#contact" class="btn btn-outline">Richiedi una Consulenza</a>
-                </div>
-            </div>
+        <div class="hero-meta">Strategic Data Consultant</div>
+        <h1>Decifrare il caos.<span>Guidare la crescita.</span></h1>
+        <p class="hero-description">Trasformo infrastrutture dati frammentate in asset strategici. Modelli analitici su misura per decisioni basate sull'evidenza.</p>
+        <div class="hero-cta">
+            <a href="#work" class="btn btn-primary">Casi Studio</a>
+            <a href="#contact" class="btn btn-outline">Contattami</a>
         </div>
     </section>
 
-    <!-- KPI Strip -->
-    <div style="padding: 0 4rem; max-width: 1400px; margin: 0 auto;">
+    <div class="kpi-section">
         <div class="kpi-container">
-            <div class="kpi-item">
-                <span class="kpi-val">06+</span>
-                <span class="kpi-label">Anni in azeinde<br>multinazionali</span>
-            </div>
-            <div class="kpi-item">
-                <span class="kpi-val">-14%</span>
-                <span class="kpi-label">Riduzione costi<br>operativi</span>
-            </div>
-            <div class="kpi-item">
-                <span class="kpi-val">3:1</span>
-                <span class="kpi-label">Consolidamento<br>Gestionali</span>
-            </div>
-            <div class="kpi-item">
-                <span class="kpi-val">+10%</span>
-                <span class="kpi-label">Incremento<br>EBITDA Impact</span>
-            </div>
+            <div class="kpi-item"><span class="kpi-val">04+</span><span class="kpi-label">Anni di<br>Esperienza</span></div>
+            <div class="kpi-item"><span class="kpi-val">-14%</span><span class="kpi-label">OpEx<br>Reduction</span></div>
+            <div class="kpi-item"><span class="kpi-val">SQL</span><span class="kpi-label">Advanced<br>Modeling</span></div>
+            <div class="kpi-item"><span class="kpi-val">ROI</span><span class="kpi-label">Data-Driven<br>Impact</span></div>
         </div>
     </div>
 
-    <!-- Servizi -->
     <section id="services">
         <div class="section-header">
-            <span class="section-tag">Metodo</span>
-            <h2 class="section-title">Aree di Intervento Strategico</h2>
+            <span class="section-tag">Expertise</span>
+            <h2 class="section-title">Intervento Strategico</h2>
         </div>
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-icon">// 01</div>
-                <h3>Business Intelligence</h3>
-                <p>Progettazione di ecosistemi dati unificati. Integrazione di fonti eterogenee (ERP, CRM) in dashboard Power BI per una visione unica del business.</p>
+                <span class="service-icon">/ 01</span>
+                <h3>Analisi Dati & BI</h3>
+                <p>Integrazione di fonti eterogenee in dashboard dinamiche per il monitoraggio dei KPI in tempo reale.</p>
                 <ul class="service-features">
-                    <li>Data Pipeline ETL (Python/SQL)</li>
-                    <li>KPI Operativi e Strategici</li>
-                    <li>Data Quality Assurance</li>
+                    <li>Power BI & Tableau</li>
+                    <li>Automazione ETL</li>
                 </ul>
             </div>
             <div class="service-card">
-                <div class="service-icon">// 02</div>
-                <h3>Controllo di Gestione</h3>
-                <p>Ingegnerizzazione dei flussi finanziari. Creazione di modelli per P&L di commessa, budget dinamici e analisi degli scostamenti automatizzata.</p>
+                <span class="service-icon">/ 02</span>
+                <h3>Controllo Gestione</h3>
+                <p>Ingegnerizzazione finanziaria per P&L, analisi scostamenti e budgeting predittivo.</p>
                 <ul class="service-features">
-                    <li>Budgeting & Forecasting</li>
-                    <li>Variance Analysis</li>
-                    <li>Controllo Costi di Campo</li>
+                    <li>Reporting Finanziario</li>
+                    <li>Cost Management</li>
                 </ul>
             </div>
             <div class="service-card">
-                <div class="service-icon">// 03</div>
-                <h3>Operations Strategy</h3>
-                <p>Ottimizzazione dei processi basata su modelli stocastici e simulazioni Monte Carlo per il dimensionamento dell'organico e la riduzione sprechi.</p>
+                <span class="service-icon">/ 03</span>
+                <h3>Ottimizzazione Processi</h3>
+                <p>Analisi dei processi operativi per l'eliminazione degli sprechi e il Capacity Planning.</p>
                 <ul class="service-features">
-                    <li>Simulazioni di Scenario</li>
-                    <li>Workforce Planning</li>
-                    <li>Lean Data Integration</li>
+                    <li>Lean Management</li>
+                    <li>Process Modeling</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- Progetti -->
     <section id="work" style="background: var(--bg-secondary); max-width: 100%;">
-        <div style="max-width: 1400px; margin: 0 auto;">
+        <div style="max-width: 1400px; margin: 0 auto; width: 100%;">
             <div class="section-header">
-                <span class="section-tag">Casi Studio</span>
-                <h2 class="section-title">Soluzioni in Produzione</h2>
+                <span class="section-tag">Portfolio</span>
+                <h2 class="section-title">Risultati Tangibili</h2>
             </div>
-            
-            <div class="project-list">
-                <a href="#" class="project-row">
-                    <span class="index">01</span>
-                    <div class="project-info">
-                        <h4>Digitalizzazione P&L Commessa</h4>
-                        <p>Architettura end-to-end per la rilevazione costi in tempo reale tramite web app e consolidamento su database relazionali.</p>
-                    </div>
-                    <div class="project-result">
-                        <span class="val">Live</span>
-                        <span class="company">Settore Edile</span>
-                    </div>
-                </a>
-                <a href="#" class="project-row">
-                    <span class="index">02</span>
-                    <div class="project-info">
-                        <h4>ETL Unified Revenue Dataset</h4>
-                        <p>Integrazione di tre diversi sistemi gestionali in un unico layer PostgreSQL per il reporting unificato di gruppo.</p>
-                    </div>
-                    <div class="project-result">
-                        <span class="val">3 → 1</span>
-                        <span class="company">Multinazionale</span>
-                    </div>
-                </a>
-                <a href="#" class="project-row">
-                    <span class="index">03</span>
-                    <div class="project-info">
-                        <h4>Capacity Modeling Organico</h4>
-                        <p>Analisi quantitativa dei carichi di lavoro e riduzione del 14% degli FTE tramite l'ottimizzazione della pianificazione task.</p>
-                    </div>
-                    <div class="project-result">
-                        <span class="val">-14% OpEx</span>
-                        <span class="company">Analisi Lab</span>
-                    </div>
-                </a>
-            </div>
+            <a href="#" class="project-row">
+                <div class="project-info">
+                    <h4>P&L Commessa Real-Time</h4>
+                    <p>Web app per il monitoraggio istantaneo dei costi di cantiere.</p>
+                </div>
+                <div class="project-result">
+                    <span class="val">Live</span>
+                    <span class="company">Settore Edile</span>
+                </div>
+            </a>
+            <a href="#" class="project-row">
+                <div class="project-info">
+                    <h4>Consolidamento 3 ERP</h4>
+                    <p>Unificazione flussi dati da 3 gestionali diversi in un unico layer SQL.</p>
+                </div>
+                <div class="project-result">
+                    <span class="val">Unified</span>
+                    <span class="company">Industrial Group</span>
+                </div>
+            </a>
         </div>
     </section>
 
-    <!-- About -->
     <section id="about">
         <div class="about-layout">
             <div class="about-text">
                 <span class="section-tag">Profilo</span>
-                <h2 class="section-title" style="margin-bottom: 2rem;">Dove la Logica incontra l'Efficienza.</h2>
-                <p>Formazione trasversale tra <strong>Filosofia</strong> (Ca' Foscari) e <strong>Ingegneria Gestionale</strong> (in corso). Questa dualità mi permette di affrontare i problemi con una capacità analitica profonda e una soluzione tecnica precisa.</p>
-                <p>Supporto le PMI nel digitalizzare i processi decisionali, portando metodologie di data science tipiche delle multinazionali in realtà agili e dinamiche.</p>
-                <div class="hero-cta" style="margin-top: 1rem;">
-                    <a href="https://edoardo2496.github.io/" target="_blank" class="btn btn-outline">Vedi GitHub</a>
-                </div>
+                <h2 class="section-title">Metodo Filosofico,<br>Rigore Ingegneristico.</h2>
+                <p style="margin-top: 2rem; color: var(--text-secondary);">Unisco la capacità analitica della Filosofia (Ca' Foscari) alla precisione dell'Ingegneria Gestionale per risolvere colli di bottiglia complessi.</p>
+                <a href="https://github.com/edoardo2496" target="_blank" class="btn btn-outline" style="margin-top: 2rem;">GitHub Profile</a>
             </div>
             <div class="experience-timeline">
                 <div class="timeline-item">
-                    <span class="time">2026 — Presente</span>
-                    <span class="role">Independent Consultant</span>
-                    <span class="company">Data Strategy & Management Control</span>
+                    <span class="time">2026 — Present</span>
+                    <span class="role">Consultant</span>
+                    <span class="company-label">Analisi Dati & Controllo</span>
                 </div>
                 <div class="timeline-item">
                     <span class="time">2023 — 2026</span>
                     <span class="role">Data Scientist</span>
-                    <span class="company">Mérieux NutriSciences</span>
+                    <span class="company-label">Mérieux NutriSciences</span>
                 </div>
                 <div class="timeline-item">
-                    <span class="time">2022 — 2023</span>
-                    <span class="role">HR Cost Controller</span>
-                    <span class="company">Replay Fashion Group</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="time">2020 — 2022</span>
+                    <span class="time">2020 — 2023</span>
                     <span class="role">Process Analyst</span>
-                    <span class="company">Mérieux NutriSciences</span>
+                    <span class="company-label">Corporate Sector</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer / Contatti -->
     <footer id="contact">
         <div>
             <div class="footer-logo">Edoardo Crema</div>
-            <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem;">Analisi Dati & Consulenza Aziendale — Treviso</p>
+            <p style="color: var(--text-muted); font-size: 0.75rem;">Strategic Data Consultant — Treviso, IT</p>
         </div>
-        <div style="text-align: right;">
-            <a href="mailto:contatto@edoardocrema.it" class="btn btn-primary" style="margin-bottom: 1.5rem;">Iniziamo</a>
-            <div class="footer-copy">© 2026 Edoardo Crema. Progettato con Metodo e Rigore.</div>
+        <div style="margin-top: 2rem;">
+            <a href="mailto:edoardo.crema@outlook.it" class="btn btn-primary">Contattami Ora</a>
+            <div class="footer-copy">© 2026 Edoardo Crema. All rights reserved.</div>
         </div>
     </footer>
 
     <script>
-        // Effetto Scrolling Navbar
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 60) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
+        // Menu Toggle Logic
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
         });
 
-        // Sfondo Animato (Data Flow Particles)
+        // Background Animation (Particles)
         const canvas = document.getElementById('data-bg');
         const ctx = canvas.getContext('2d');
-        let particles = [];
+        let points = [];
 
-        function initCanvas() {
+        function init() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-        }
-
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.4;
-                this.speedY = (Math.random() - 0.5) * 0.4;
-                this.opacity = Math.random() * 0.4;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width || this.x < 0 || this.y > canvas.height || this.y < 0) {
-                    this.reset();
-                }
-            }
-            draw() {
-                ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
+            points = [];
+            for(let i=0; i<50; i++) points.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5
             });
-            requestAnimationFrame(animate);
         }
 
-        window.onload = () => {
-            initCanvas();
-            for (let i = 0; i < 80; i++) particles.push(new Particle());
-            animate();
-        };
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#3b82f6';
+            points.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 1, 0, Math.PI*2);
+                ctx.fill();
+            });
+            requestAnimationFrame(draw);
+        }
 
-        window.onresize = initCanvas;
+        window.addEventListener('resize', init);
+        window.onload = () => { init(); draw(); };
     </script>
 </body>
 </html>

@@ -1,463 +1,1367 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edoardo Crema — Strategic Data Consultant</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edoardo Crema · Consulente di Ingegneria Gestionale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <style>
-        :root {
-            --bg-primary: #0a0c10;
-            --bg-secondary: #12151c;
-            --accent: #3b82f6; 
-            --accent-soft: rgba(59, 130, 246, 0.08);
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-muted: #475569;
-            --border: rgba(255, 255, 255, 0.08);
-            --font-sans: 'Inter', sans-serif;
-            --font-serif: 'Playfair Display', serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --nav-height: 70px;
-        }
+  :root {
+    --ink: #0f0e0b;
+    --ink-soft: #3a3830;
+    --ink-muted: #7a7568;
+    --cream: #f5f2ec;
+    --cream-dark: #ece8e0;
+    --gold: #b8861a;
+    --gold-light: #d4a43a;
+    --white: #fdfcf9;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
 
-        /* --- Reset & Global --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; background: var(--bg-primary); }
-        body {
-            font-family: var(--font-sans);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+  html { scroll-behavior: smooth; }
 
-        #data-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            opacity: 0.2;
-            pointer-events: none;
-        }
+  body {
+    font-family: var(--sans);
+    background: var(--white);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
 
-        /* --- Navigation Mobile First --- */
-        nav {
-            position: fixed;
-            top: 0; width: 100%;
-            height: var(--nav-height);
-            padding: 0 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(10, 12, 16, 0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 5%;
+    background: rgba(253, 252, 249, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(15,14,11,0.06);
+  }
 
-        .logo {
-            font-family: var(--font-serif);
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-decoration: none;
-            color: var(--text-primary);
-        }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
 
-        /* Hamburger Menu */
-        .menu-toggle {
-            display: block;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        .menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 2px;
-            background: var(--text-primary);
-            margin: 5px 0;
-            transition: 0.3s;
-        }
-        .menu-toggle.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 5px); }
-        .menu-toggle.active span:nth-child(2) { opacity: 0; }
-        .menu-toggle.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -5px); }
+  .nav-link {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--ink-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--ink); }
 
-        .nav-links {
-            position: fixed;
-            top: 0; right: -100%;
-            width: 80%; height: 100vh;
-            background: var(--bg-secondary);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2.5rem;
-            list-style: none;
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            border-left: 1px solid var(--border);
-        }
-        .nav-links.active { right: 0; }
-        .nav-links a {
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: var(--text-secondary);
-            letter-spacing: 0.15em;
-        }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
 
-        /* --- Hero Section Mobile First --- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: calc(var(--nav-height) + 2rem) 1.5rem 4rem;
-        }
-        .hero-meta {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        .hero-meta::before { content: ''; width: 25px; height: 1px; background: var(--accent); }
-        
-        .hero h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 12vw, 5rem);
-            line-height: 1.1;
-            font-weight: 400;
-            margin-bottom: 2rem;
-            letter-spacing: -0.02em;
-        }
-        .hero h1 span { display: block; color: var(--text-muted); font-style: italic; }
-        
-        .hero-description {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            margin-bottom: 2.5rem;
-            max-width: 500px;
-        }
-        .hero-cta {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
+  .nav-cta {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+  }
+  .nav-cta:hover { color: var(--gold); }
 
-        /* --- Buttons --- */
-        .btn {
-            padding: 1.1rem 2rem;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            text-decoration: none;
-            text-align: center;
-            transition: 0.3s;
-        }
-        .btn-primary { background: var(--text-primary); color: var(--bg-primary); }
-        .btn-outline { border: 1px solid var(--border); color: var(--text-primary); }
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
 
-        /* --- KPI Strip Mobile First --- */
-        .kpi-section { padding: 0 1.5rem; margin-top: -2rem; position: relative; z-index: 10; }
-        .kpi-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            border: 1px solid var(--border);
-            background: var(--bg-secondary);
-        }
-        .kpi-item {
-            padding: 2rem 1rem;
-            border-bottom: 1px solid var(--border);
-            border-right: 1px solid var(--border);
-            text-align: center;
-        }
-        .kpi-item:nth-child(even) { border-right: none; }
-        .kpi-item:nth-last-child(-n+2) { border-bottom: none; }
-        .kpi-val { font-family: var(--font-serif); font-size: 2.2rem; color: var(--accent); display: block; }
-        .kpi-label { font-family: var(--font-mono); font-size: 0.55rem; color: var(--text-muted); text-transform: uppercase; }
+  .hero-left {
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 6% 5rem;
+    position: relative;
+  }
 
-        /* --- Sections --- */
-        section { padding: 5rem 1.5rem; }
-        .section-tag { font-family: var(--font-mono); color: var(--accent); font-size: 0.7rem; text-transform: uppercase; margin-bottom: 0.8rem; display: block; }
-        .section-title { font-family: var(--font-serif); font-size: clamp(2rem, 8vw, 3.5rem); line-height: 1.2; font-weight: 400; }
-        .section-header { margin-bottom: 3rem; }
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 40px,
+      rgba(184,134,26,0.03) 40px,
+      rgba(184,134,26,0.03) 41px
+    );
+    pointer-events: none;
+  }
 
-        /* --- Services --- */
-        .services-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-        .service-card {
-            background: var(--bg-secondary);
-            padding: 3rem 2rem;
-            border: 1px solid var(--border);
-        }
-        .service-icon { color: var(--accent); font-family: var(--font-mono); font-size: 0.9rem; margin-bottom: 1.5rem; display: block; }
-        .service-card h3 { font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 1rem; }
-        .service-card p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
-        .service-features { list-style: none; }
-        .service-features li { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
-        .service-features li::before { content: ''; width: 3px; height: 3px; background: var(--accent); border-radius: 50%; }
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--gold);
+  }
 
-        /* --- Projects --- */
-        .project-row {
-            display: block;
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border);
-            text-decoration: none;
-            color: inherit;
-        }
-        .project-info h4 { font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .project-info p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem; }
-        .project-result { display: flex; justify-content: space-between; align-items: center; }
-        .project-result .val { font-family: var(--font-mono); font-size: 1rem; color: var(--accent); }
-        .project-result .company { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 2rem;
+    position: relative; z-index: 1;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
 
-        /* --- About --- */
-        .about-layout { display: flex; flex-direction: column; gap: 4rem; }
-        .experience-timeline { border-left: 1px solid var(--border); padding-left: 1.5rem; }
-        .timeline-item { margin-bottom: 2.5rem; position: relative; }
-        .timeline-item::before { content: ''; position: absolute; left: -1.75rem; top: 0.4rem; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
-        .time { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); }
-        .role { display: block; font-weight: 500; font-size: 1rem; margin-top: 0.2rem; }
-        .company-label { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
+  .hero-sub {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(245,242,236,0.55);
+    max-width: 30ch;
+    position: relative; z-index: 1;
+  }
 
-        /* --- Footer --- */
-        footer { padding: 4rem 1.5rem; background: var(--bg-secondary); border-top: 1px solid var(--border); text-align: center; }
-        .footer-logo { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 1rem; }
-        .footer-copy { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); margin-top: 2rem; }
+  .hero-right {
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 6% 5rem;
+    gap: 3rem;
+  }
 
-        /* --- DESKTOP REFINEMENTS (Media Queries) --- */
-        @media (min-width: 768px) {
-            nav { padding: 0 4rem; height: 90px; }
-            .menu-toggle { display: none; }
-            .nav-links {
-                position: static;
-                height: auto; width: auto;
-                background: transparent;
-                flex-direction: row;
-                border: none;
-                gap: 3rem;
-            }
-            .nav-links a { font-size: 0.7rem; }
-            
-            .hero { padding: 0 4rem; align-items: flex-start; }
-            .hero h1 { font-size: 5rem; }
-            .hero-cta { flex-direction: row; }
-            
-            .kpi-section { padding: 0 4rem; }
-            .kpi-container { grid-template-columns: repeat(4, 1fr); }
-            .kpi-item { border-bottom: none; }
-            .kpi-item:last-child { border-right: none; }
+  .hero-stat {
+    border-left: 2px solid var(--gold);
+    padding-left: 1.5rem;
+  }
+  .hero-stat-num {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1;
+    display: block;
+  }
+  .hero-stat-label {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+    margin-top: 0.4rem;
+    display: block;
+  }
 
-            section { padding: 8rem 4rem; max-width: 1400px; margin: 0 auto; }
-            .services-grid { grid-template-columns: repeat(3, 1fr); }
-            .project-row { display: grid; grid-template-columns: 1fr 200px; align-items: center; padding: 3rem 0; }
-            .project-result { flex-direction: column; align-items: flex-end; text-align: right; }
-            
-            .about-layout { flex-direction: row; align-items: flex-start; }
-            .about-text { flex: 1.2; }
-            .experience-timeline { flex: 0.8; }
-            
-            footer { display: flex; justify-content: space-between; text-align: left; padding: 5rem 4rem; }
-        }
-    </style>
+  .hero-divider {
+    width: 2rem;
+    height: 1px;
+    background: var(--ink-muted);
+    opacity: 0.3;
+  }
+
+  /* ── PROBLEM ── */
+  .problem {
+    padding: 7rem 5%;
+    background: var(--white);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .problem-heading {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .problem-heading em {
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+
+  .problem-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .problem-item {
+    padding: 1.75rem 0;
+    border-bottom: 1px solid rgba(15,14,11,0.08);
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1rem;
+    align-items: start;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .problem-item.visible { opacity: 1; transform: none; }
+  .problem-item:first-child { border-top: 1px solid rgba(15,14,11,0.08); }
+
+  .problem-num {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--gold);
+    margin-top: 0.1rem;
+  }
+
+  .problem-text strong {
+    display: block;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+  .problem-text span {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  /* ── SERVICES ── */
+  .services {
+    background: var(--ink);
+    padding: 7rem 5%;
+  }
+
+  .services-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .services-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .services-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--cream);
+  }
+  .services-title em { font-style: italic; color: var(--gold-light); }
+
+  .services-intro {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: rgba(245,242,236,0.5);
+    max-width: 38ch;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(245,242,236,0.08);
+  }
+
+  .service-card {
+    background: var(--ink);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: background 0.3s;
+  }
+  .service-card:hover { background: #1a1916; }
+
+  .service-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid rgba(184,134,26,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .service-icon svg {
+    width: 1rem;
+    height: 1rem;
+    stroke: var(--gold-light);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .service-name {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.1;
+  }
+
+  .service-desc {
+    font-size: 0.85rem;
+    line-height: 1.75;
+    color: rgba(245,242,236,0.5);
+    flex: 1;
+  }
+
+  .service-outcomes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-top: 1px solid rgba(245,242,236,0.08);
+    padding-top: 1.25rem;
+    margin-top: auto;
+  }
+
+  .outcome {
+    font-size: 0.78rem;
+    color: rgba(245,242,236,0.4);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .outcome::before {
+    content: '→';
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 0.05em;
+  }
+
+  /* ── METHOD ── */
+  .method {
+    padding: 7rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .method-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .method-heading {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 2.8vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink);
+    position: sticky;
+    top: 6rem;
+  }
+  .method-heading em { font-style: italic; }
+
+  .method-steps {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .method-step {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 1.5rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid rgba(15,14,11,0.08);
+    align-items: start;
+  }
+  .method-step:first-child { border-top: 1px solid rgba(15,14,11,0.08); }
+
+  .step-num {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: rgba(15,14,11,0.08);
+    line-height: 1;
+  }
+
+  .step-content h3 {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .step-content p {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--ink-muted);
+  }
+
+  /* ── DIFFERENTIATOR ── */
+  .diff {
+    background: var(--cream);
+    padding: 7rem 5%;
+  }
+
+  .diff-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .diff-quote {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.5vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .diff-quote em { font-style: italic; color: var(--gold); }
+
+  .diff-text {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+
+  .diff-text p + p { margin-top: 1.25rem; }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 8rem 5%;
+    background: var(--white);
+    text-align: center;
+  }
+
+  .cta-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .cta-title em { font-style: italic; }
+
+  .cta-sub {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    line-height: 1.75;
+    margin-bottom: 3rem;
+    max-width: 42ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn:hover { background: var(--ink-soft); transform: translateY(-1px); }
+  .btn:active { transform: none; }
+  .btn-arrow {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.2s;
+  }
+  .btn:hover .btn-arrow { transform: translateX(3px); }
+
+  .cta-note {
+    margin-top: 1.25rem;
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(15,14,11,0.08);
+    padding: 2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    opacity: 0.6;
+  }
+
+  /* ── CHI SONO ── */
+  .chisono {
+    padding: 7rem 5%;
+    background: var(--white);
+    border-top: 1px solid rgba(15,14,11,0.06);
+  }
+
+  .chisono-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .chisono-left {
+    position: sticky;
+    top: 6rem;
+  }
+
+  .chisono-name {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 2.8vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .chisono-role {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+  }
+
+  .chisono-bio {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+  .chisono-bio p + p { margin-top: 1rem; }
+
+  .chisono-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .chisono-link {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+  .chisono-link:hover { color: var(--gold); }
+  .chisono-link::before { content: '↗'; font-size: 0.7rem; }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(15,14,11,0.07);
+    border: 1px solid rgba(15,14,11,0.07);
+  }
+
+  .result-card {
+    background: var(--white);
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .result-num {
+    font-family: var(--serif);
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .result-num span {
+    font-size: 1.4rem;
+    color: var(--gold);
+  }
+
+  .result-title {
+    font-weight: 500;
+    font-size: 0.88rem;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .result-context {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  .result-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid rgba(184,134,26,0.3);
+    color: var(--gold);
+    width: fit-content;
+    margin-top: auto;
+  }
+
+  /* ── ARTICOLI ── */
+  .articoli {
+    padding: 7rem 5%;
+    background: var(--cream);
+  }
+
+  .articoli-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .articoli-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  .articoli-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .articoli-title em { font-style: italic; }
+
+  .articoli-soon {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    border: 1px solid rgba(15,14,11,0.15);
+    padding: 0.35rem 0.9rem;
+  }
+
+  .articoli-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .articolo-card {
+    background: var(--white);
+    border: 1px solid rgba(15,14,11,0.07);
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .articolo-card:hover { border-color: rgba(184,134,26,0.3); }
+
+  .articolo-card.placeholder::after {
+    content: 'Prossimamente';
+    position: absolute;
+    top: 1rem; right: 1rem;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    opacity: 0.5;
+  }
+
+  .articolo-tag {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .articolo-title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.25;
+    flex: 1;
+  }
+  .articolo-title.placeholder-text {
+    color: var(--ink-muted);
+    opacity: 0.4;
+  }
+
+  .articolo-desc {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    line-height: 1.65;
+  }
+  .articolo-desc.placeholder-text { opacity: 0.35; }
+
+  .articolo-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(15,14,11,0.06);
+    margin-top: auto;
+  }
+
+  .articolo-date {
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    opacity: 0.5;
+  }
+
+  .articolo-link {
+    font-size: 0.72rem;
+    color: var(--gold);
+    text-decoration: none;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* ── PROGETTI ── */
+  .progetti {
+    padding: 7rem 5%;
+    background: var(--white);
+    border-top: 1px solid rgba(15,14,11,0.06);
+  }
+
+  .progetti-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .progetti-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  .progetti-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .progetti-title em { font-style: italic; }
+
+  .progetti-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(15,14,11,0.07);
+    border: 1px solid rgba(15,14,11,0.07);
+  }
+
+  .progetto-card {
+    background: var(--white);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: background 0.2s;
+  }
+  .progetto-card:hover { background: #faf8f4; }
+
+  .progetto-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .progetto-num {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: rgba(15,14,11,0.15);
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+
+  .progetto-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .progetto-tag {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border: 1px solid rgba(184,134,26,0.25);
+    color: var(--gold);
+  }
+
+  .progetto-name {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .progetto-name.placeholder-text { color: var(--ink-muted); opacity: 0.35; }
+
+  .progetto-desc {
+    font-size: 0.83rem;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+  .progetto-desc.placeholder-text { opacity: 0.35; }
+
+  .progetto-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(15,14,11,0.06);
+    margin-top: auto;
+  }
+
+  .progetto-status {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    opacity: 0.4;
+  }
+
+  .progetto-link {
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    text-decoration: none;
+    opacity: 0.3;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .hero-eyebrow { animation: fadeUp 0.7s ease both 0.1s; }
+  .hero-title   { animation: fadeUp 0.7s ease both 0.25s; }
+  .hero-sub     { animation: fadeUp 0.7s ease both 0.4s; }
+  .hero-stat    { animation: fadeUp 0.7s ease both; }
+  .hero-stat:nth-child(1) { animation-delay: 0.3s; }
+  .hero-stat:nth-child(3) { animation-delay: 0.45s; }
+  .hero-stat:nth-child(5) { animation-delay: 0.6s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 7rem 6% 3.5rem; }
+    .hero-right { padding: 3rem 6% 4rem; flex-direction: row; flex-wrap: wrap; gap: 2rem; }
+    .hero-divider { display: none; }
+    .problem-grid, .services-header, .diff-inner, .method-grid, .chisono-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .chisono-left { position: static; }
+    .method-heading { position: static; }
+    .services-grid, .articoli-grid, .progetti-grid { grid-template-columns: 1fr; }
+    .articoli-header, .progetti-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .nav-links { display: none; }
+    nav { padding: 1rem 5%; }
+  }
+</style>
 </head>
 <body>
 
-    <canvas id="data-bg"></canvas>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Edoardo Crema</a>
+  <div class="nav-links">
+    <a class="nav-link" href="#chisono">Chi sono</a>
+    <a class="nav-link" href="#articoli">Articoli</a>
+    <a class="nav-link" href="#progetti">Progetti</a>
+  </div>
+  <a class="nav-cta" href="#contatto">Prenota una call</a>
+</nav>
 
-    <nav id="navbar">
-        <a href="#" class="logo">Edoardo Crema</a>
-        <div class="menu-toggle" id="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#services">Servizi</a></li>
-            <li><a href="#work">Progetti</a></li>
-            <li><a href="#about">Chi Sono</a></li>
-            <li><a href="#contact">Contatti</a></li>
-        </ul>
-    </nav>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-eyebrow">Edoardo Crema · Consulente di Ingegneria Gestionale</span>
+    <h1 class="hero-title">
+      Porto il metodo<br>
+      ingegneristico<br>
+      <em>dentro la tua azienda.</em>
+    </h1>
+    <p class="hero-sub">Aiuto le PMI a incrementare la produttività e ridurre i costi operativi — attraverso l'analisi dei dati e l'ottimizzazione dei processi, con metodo ingegneristico.</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat">
+      <span class="hero-stat-num">3</span>
+      <span class="hero-stat-label">aree di intervento:<br>processi, numeri, dati</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">1</span>
+      <span class="hero-stat-label">metodo: misura,<br>analizza, ottimizza</span>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">0</span>
+      <span class="hero-stat-label">decisioni affidate<br>all'istinto</span>
+    </div>
+  </div>
+</section>
 
-    <section class="hero" id="home">
-        <div class="hero-meta">Strategic Data Consultant</div>
-        <h1>Decifrare il caos.<span>Guidare la crescita.</span></h1>
-        <p class="hero-description">Trasformo infrastrutture dati frammentate in asset strategici. Modelli analitici su misura per decisioni basate sull'evidenza.</p>
-        <div class="hero-cta">
-            <a href="#work" class="btn btn-primary">Casi Studio</a>
-            <a href="#contact" class="btn btn-outline">Contattami</a>
+<!-- PROBLEM -->
+<section class="problem">
+  <span class="section-label">Il problema che risolvo</span>
+  <div class="problem-grid">
+    <h2 class="problem-heading">
+      La tua azienda<br>ha i dati.<br>
+      <em>Non ha ancora</em><br>
+      la visione.
+    </h2>
+    <div class="problem-items">
+      <div class="problem-item">
+        <span class="problem-num">01</span>
+        <div class="problem-text">
+          <strong>Navighi a vista</strong>
+          <span>Hai un gestionale, hai degli Excel — ma a fine mese non sai davvero se stai guadagnando o perdendo e perché.</span>
         </div>
-    </section>
+      </div>
+      <div class="problem-item">
+        <span class="problem-num">02</span>
+        <div class="problem-text">
+          <strong>I tuoi processi sono nati per abitudine</strong>
+          <span>Nessuno ha mai messo in dubbio come funzionano le cose. Ma ogni inefficienza silenziosa ti costa margine ogni giorno.</span>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="problem-num">03</span>
+        <div class="problem-text">
+          <strong>Decidi di pancia</strong>
+          <span>Non perché vuoi — ma perché i numeri che hai non ti parlano. I dati ci sono, ma nessuno li ha mai trasformati in indicatori utili.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="kpi-section">
-        <div class="kpi-container">
-            <div class="kpi-item"><span class="kpi-val">04+</span><span class="kpi-label">Anni di<br>Esperienza</span></div>
-            <div class="kpi-item"><span class="kpi-val">-14%</span><span class="kpi-label">OpEx<br>Reduction</span></div>
-            <div class="kpi-item"><span class="kpi-val">SQL</span><span class="kpi-label">Advanced<br>Modeling</span></div>
-            <div class="kpi-item"><span class="kpi-val">ROI</span><span class="kpi-label">Data-Driven<br>Impact</span></div>
-        </div>
+<!-- SERVICES -->
+<section class="services">
+  <div class="services-inner">
+    <div class="services-header">
+      <h2 class="services-title">
+        Tre interventi.<br>
+        <em>Un solo obiettivo:</em><br>
+        chiarezza.
+      </h2>
+      <p class="services-intro">Non vendo software, né soluzioni preconfezionate. Porto un metodo — quello dell'ingegneria gestionale — adattato alla realtà concreta della tua PMI.</p>
     </div>
 
-    <section id="services">
-        <div class="section-header">
-            <span class="section-tag">Expertise</span>
-            <h2 class="section-title">Intervento Strategico</h2>
+    <div class="services-grid">
+      <!-- Controllo di gestione -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 16 16"><polyline points="2,12 6,7 9,10 14,3"/></svg>
         </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <span class="service-icon">/ 01</span>
-                <h3>Analisi Dati & BI</h3>
-                <p>Integrazione di fonti eterogenee in dashboard dinamiche per il monitoraggio dei KPI in tempo reale.</p>
-                <ul class="service-features">
-                    <li>Power BI & Tableau</li>
-                    <li>Automazione ETL</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <span class="service-icon">/ 02</span>
-                <h3>Controllo Gestione</h3>
-                <p>Ingegnerizzazione finanziaria per P&L, analisi scostamenti e budgeting predittivo.</p>
-                <ul class="service-features">
-                    <li>Reporting Finanziario</li>
-                    <li>Cost Management</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <span class="service-icon">/ 03</span>
-                <h3>Ottimizzazione Processi</h3>
-                <p>Analisi dei processi operativi per l'eliminazione degli sprechi e il Capacity Planning.</p>
-                <ul class="service-features">
-                    <li>Lean Management</li>
-                    <li>Process Modeling</li>
-                </ul>
-            </div>
+        <h3 class="service-name">Controllo<br>di Gestione</h3>
+        <p class="service-desc">Costruiamo insieme il sistema di indicatori che ti serve per capire davvero come sta andando la tua azienda — non a posteriori, ma in tempo reale.</p>
+        <div class="service-outcomes">
+          <span class="outcome">Cruscotto KPI operativi e finanziari</span>
+          <span class="outcome">Budget e forecast su misura</span>
+          <span class="outcome">Analisi di marginalità per prodotto/cliente</span>
         </div>
-    </section>
+      </div>
 
-    <section id="work" style="background: var(--bg-secondary); max-width: 100%;">
-        <div style="max-width: 1400px; margin: 0 auto; width: 100%;">
-            <div class="section-header">
-                <span class="section-tag">Portfolio</span>
-                <h2 class="section-title">Risultati Tangibili</h2>
-            </div>
-            <a href="#" class="project-row">
-                <div class="project-info">
-                    <h4>P&L Commessa Real-Time</h4>
-                    <p>Web app per il monitoraggio istantaneo dei costi di cantiere.</p>
-                </div>
-                <div class="project-result">
-                    <span class="val">Live</span>
-                    <span class="company">Settore Edile</span>
-                </div>
-            </a>
-            <a href="#" class="project-row">
-                <div class="project-info">
-                    <h4>Consolidamento 3 ERP</h4>
-                    <p>Unificazione flussi dati da 3 gestionali diversi in un unico layer SQL.</p>
-                </div>
-                <div class="project-result">
-                    <span class="val">Unified</span>
-                    <span class="company">Industrial Group</span>
-                </div>
-            </a>
+      <!-- Ottimizzazione di Processo -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2.5 1.5"/></svg>
         </div>
-    </section>
-
-    <section id="about">
-        <div class="about-layout">
-            <div class="about-text">
-                <span class="section-tag">Profilo</span>
-                <h2 class="section-title">Metodo Filosofico,<br>Rigore Ingegneristico.</h2>
-                <p style="margin-top: 2rem; color: var(--text-secondary);">Unisco la capacità analitica della Filosofia (Ca' Foscari) alla precisione dell'Ingegneria Gestionale per risolvere colli di bottiglia complessi.</p>
-                <a href="https://github.com/edoardo2496" target="_blank" class="btn btn-outline" style="margin-top: 2rem;">GitHub Profile</a>
-            </div>
-            <div class="experience-timeline">
-                <div class="timeline-item">
-                    <span class="time">2026 — Present</span>
-                    <span class="role">Consultant</span>
-                    <span class="company-label">Analisi Dati & Controllo</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="time">2023 — 2026</span>
-                    <span class="role">Data Scientist</span>
-                    <span class="company-label">Mérieux NutriSciences</span>
-                </div>
-                <div class="timeline-item">
-                    <span class="time">2020 — 2023</span>
-                    <span class="role">Process Analyst</span>
-                    <span class="company-label">Corporate Sector</span>
-                </div>
-            </div>
+        <h3 class="service-name">Ottimizzazione<br>di Processo</h3>
+        <p class="service-desc">Mappiamo i tuoi flussi operativi, identifichiamo dove si perde tempo e denaro, e ridisegniamo i processi in modo misurabile ed efficiente.</p>
+        <div class="service-outcomes">
+          <span class="outcome">Mappatura as-is e identificazione colli di bottiglia</span>
+          <span class="outcome">Ridisegno dei flussi operativi</span>
+          <span class="outcome">Misurazione continua delle performance</span>
         </div>
-    </section>
+      </div>
 
-    <footer id="contact">
-        <div>
-            <div class="footer-logo">Edoardo Crema</div>
-            <p style="color: var(--text-muted); font-size: 0.75rem;">Strategic Data Consultant — Treviso, IT</p>
+      <!-- Analisi Dati -->
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 16 16"><rect x="2" y="9" width="3" height="5"/><rect x="6.5" y="5" width="3" height="9"/><rect x="11" y="2" width="3" height="12"/></svg>
         </div>
-        <div style="margin-top: 2rem;">
-            <a href="mailto:edoardo.crema@outlook.it" class="btn btn-primary">Contattami Ora</a>
-            <div class="footer-copy">© 2026 Edoardo Crema. All rights reserved.</div>
+        <h3 class="service-name">Analisi<br>Dati</h3>
+        <p class="service-desc">Trasformiamo i dati che già hai — dal gestionale, dagli Excel, dall'ERP — in informazioni utili a prendere decisioni più rapide e più consapevoli.</p>
+        <div class="service-outcomes">
+          <span class="outcome">Pulizia e strutturazione dei dati esistenti</span>
+          <span class="outcome">Dashboard operative e report automatizzati</span>
+          <span class="outcome">Analisi predittive e scenari decisionali</span>
         </div>
-    </footer>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Menu Toggle Logic
-        const menuToggle = document.getElementById('mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-        
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
+<!-- METHOD -->
+<section class="method">
+  <span class="section-label">Come lavoro</span>
+  <div class="method-grid">
+    <h2 class="method-heading">
+      Il metodo<br>
+      <em>ingegneristico</em><br>
+      applicato al<br>business.
+    </h2>
+    <div class="method-steps">
+      <div class="method-step">
+        <span class="step-num">01</span>
+        <div class="step-content">
+          <h3>Ascolto e diagnosi</h3>
+          <p>Prima di proporre qualsiasi soluzione, capisco il tuo business. Come funzionano i processi oggi, quali dati esistono, quali decisioni ti tengono sveglio la notte.</p>
+        </div>
+      </div>
+      <div class="method-step">
+        <span class="step-num">02</span>
+        <div class="step-content">
+          <h3>Misura e analisi</h3>
+          <p>Quello che non si misura non si migliora. Quantifichiamo la situazione attuale: dove si perde margine, dove si perde tempo, quali numeri mancano.</p>
+        </div>
+      </div>
+      <div class="method-step">
+        <span class="step-num">03</span>
+        <div class="step-content">
+          <h3>Intervento e struttura</h3>
+          <p>Costruiamo gli strumenti — processi ridisegnati, cruscotti, sistemi di controllo — che restano in azienda anche dopo la fine della consulenza.</p>
+        </div>
+      </div>
+      <div class="method-step">
+        <span class="step-num">04</span>
+        <div class="step-content">
+          <h3>Trasferimento e autonomia</h3>
+          <p>L'obiettivo non è che tu dipenda da me. È che tu sappia leggere i tuoi numeri, interpretare i tuoi dati e governare l'azienda con piena consapevolezza.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Background Animation (Particles)
-        const canvas = document.getElementById('data-bg');
-        const ctx = canvas.getContext('2d');
-        let points = [];
+<!-- DIFFERENTIATOR -->
+<section class="diff">
+  <div class="diff-inner">
+    <blockquote class="diff-quote">
+      "Il tuo commercialista<br>ti dice com'è andata.<br>
+      <em>Io ti dico perché —<br>e cosa fare.</em>"
+    </blockquote>
+    <div class="diff-text">
+      <p>Il commercialista guarda il passato. Il gestionale non parla. Le grandi società di consulenza costano troppo per una PMI.</p>
+      <p>Porto rigore metodologico senza burocrazia. Strumenti veri, non slide da PowerPoint. Risultati misurabili, non generici consigli strategici. Ogni progetto è gestito in autonomia completa, dal brief iniziale al rilascio in produzione.</p>
+      <p>Il mio vantaggio è unico: so modellare la realtà operativa con rigore quantitativo <em>e</em> so comunicarla in modo che chi guida l'azienda possa davvero usarla per decidere.</p>
+    </div>
+  </div>
+</section>
 
-        function init() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            points = [];
-            for(let i=0; i<50; i++) points.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5
-            });
-        }
+<!-- CHI SONO -->
+<section class="chisono" id="chisono">
+  <div class="chisono-inner">
+    <div class="chisono-left">
+      <span class="section-label">Chi sono</span>
+      <h2 class="chisono-name">Edoardo<br>Crema</h2>
+      <p class="chisono-role">Ingegneria Gestionale · Analytics</p>
+      <div class="chisono-bio">
+        <p>Lavoro al crocevia tra ingegneria gestionale, modellazione quantitativa e analisi dei dati. Ho maturato 4+ anni di esperienza in contesti industriali multinazionali — prima come analista interno, oggi come consulente indipendente per PMI.</p>
+        <p>Background in Ingegneria Gestionale (Università di Udine) e Scienze Filosofiche (Ca' Foscari, 110L con Lode): rigore quantitativo e pensiero sistemico insieme. Perché i numeri da soli non bastano — serve capire il sistema in cui vivono.</p>
+        <p>Non propongo soluzioni preconfezionate. Ogni intervento parte dalla realtà specifica dell'azienda — i suoi dati, i suoi processi, le sue persone.</p>
+      </div>
+      <div class="chisono-links">
+        <a class="chisono-link" href="https://edoardocrema.it" target="_blank">edoardocrema.it</a>
+        <a class="chisono-link" href="https://github.com/edoardo2496" target="_blank">github.com/edoardo2496</a>
+        <a class="chisono-link" href="mailto:edoardo.crema@outlook.it">edoardo.crema@outlook.it</a>
+      </div>
+    </div>
 
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#3b82f6';
-            points.forEach(p => {
-                p.x += p.vx;
-                p.y += p.vy;
-                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 1, 0, Math.PI*2);
-                ctx.fill();
-            });
-            requestAnimationFrame(draw);
-        }
+    <div>
+      <span class="section-label" style="margin-bottom: 2rem;">Risultati reali, in produzione</span>
+      <div class="results-grid">
+        <div class="result-card">
+          <span class="result-num">−<span>14</span>%</span>
+          <p class="result-title">Fabbisogno FTE ridotto</p>
+          <p class="result-context">Dimostrato tramite modellazione matematica dei flussi operativi con sistemi ODE. Il modello è oggi in produzione e ha guidato la riqualificazione del personale.</p>
+          <span class="result-tag">Ottimizzazione di processo</span>
+        </div>
+        <div class="result-card">
+          <span class="result-num" style="font-size: 1.8rem; padding-top: 0.4rem;">P&amp;L<br>per commessa</span>
+          <p class="result-title">Primo sistema di controllo costruito da zero</p>
+          <p class="result-context">Digitalizzazione completa del controllo di gestione: dalla raccolta dati alla messa in produzione di un P&L operativo per singolo progetto.</p>
+          <span class="result-tag">Controllo di gestione</span>
+        </div>
+        <div class="result-card">
+          <span class="result-num" style="font-size: 1.6rem; padding-top: 0.4rem;">Monte<br>Carlo</span>
+          <p class="result-title">Forecasting probabilistico del fatturato</p>
+          <p class="result-context">Modello stocastico per la pianificazione strategica: distribuzione attesa per cluster di vendita, input diretto della dirigenza per FY2027.</p>
+          <span class="result-tag">Analisi dati</span>
+        </div>
+        <div class="result-card">
+          <span class="result-num">−<span>10</span>%</span>
+          <p class="result-title">Monte ore settimanale recuperato</p>
+          <p class="result-context">Eliminazione del processo di reportistica manuale in Excel tramite pipeline ETL e automazione Python. Dati estratti direttamente dai gestionali.</p>
+          <span class="result-tag">Analisi dati · Processo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        window.addEventListener('resize', init);
-        window.onload = () => { init(); draw(); };
-    </script>
+<!-- ARTICOLI -->
+<section class="articoli" id="articoli">
+  <div class="articoli-inner">
+    <div class="articoli-header">
+      <div>
+        <span class="section-label">Articoli</span>
+        <h2 class="articoli-title">Pensieri su<br><em>numeri, processi e decisioni.</em></h2>
+      </div>
+      <span class="articoli-soon">In arrivo</span>
+    </div>
+
+    <div class="articoli-grid">
+      <div class="articolo-card placeholder">
+        <span class="articolo-tag">Controllo di gestione</span>
+        <h3 class="articolo-title placeholder-text">Perché il tuo gestionale non ti dice quanto stai guadagnando davvero</h3>
+        <p class="articolo-desc placeholder-text">La differenza tra fatturato e marginalità, e perché la maggior parte delle PMI non la conosce con precisione.</p>
+        <div class="articolo-meta">
+          <span class="articolo-date">— 2025</span>
+          <span class="articolo-link">Leggi →</span>
+        </div>
+      </div>
+
+      <div class="articolo-card placeholder">
+        <span class="articolo-tag">Ottimizzazione di processo</span>
+        <h3 class="articolo-title placeholder-text">I processi nati per abitudine: come riconoscerli e quanto costano</h3>
+        <p class="articolo-desc placeholder-text">Mappare un processo operativo per la prima volta spesso rivela inefficienze che nessuno aveva mai quantificato.</p>
+        <div class="articolo-meta">
+          <span class="articolo-date">— 2025</span>
+          <span class="articolo-link">Leggi →</span>
+        </div>
+      </div>
+
+      <div class="articolo-card placeholder">
+        <span class="articolo-tag">Analisi dati</span>
+        <h3 class="articolo-title placeholder-text">Dati senza visione: il problema più comune nelle PMI italiane</h3>
+        <p class="articolo-desc placeholder-text">Avere un ERP non significa avere controllo. La distanza tra dato grezzo e decisione consapevole è spesso enorme.</p>
+        <div class="articolo-meta">
+          <span class="articolo-date">— 2025</span>
+          <span class="articolo-link">Leggi →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGETTI -->
+<section class="progetti" id="progetti">
+  <div class="progetti-inner">
+    <div class="progetti-header">
+      <div>
+        <span class="section-label">Progetti</span>
+        <h2 class="progetti-title">Interventi reali,<br><em>risultati misurabili.</em></h2>
+      </div>
+      <span class="articoli-soon">In arrivo</span>
+    </div>
+
+    <div class="progetti-grid">
+      <div class="progetto-card">
+        <div class="progetto-header">
+          <span class="progetto-num">01</span>
+          <div class="progetto-tags">
+            <span class="progetto-tag">Controllo di gestione</span>
+            <span class="progetto-tag">PMI</span>
+          </div>
+        </div>
+        <h3 class="progetto-name placeholder-text">Sistema P&L per commessa — dal foglio Excel alla produzione</h3>
+        <p class="progetto-desc placeholder-text">Primo sistema di controllo di gestione costruito da zero per una PMI: raccolta dati, modellazione, messa in produzione. Il cliente ora conosce la marginalità di ogni progetto in tempo reale.</p>
+        <div class="progetto-footer">
+          <span class="progetto-status">Case study in preparazione</span>
+          <span class="progetto-link">Dettagli →</span>
+        </div>
+      </div>
+
+      <div class="progetto-card">
+        <div class="progetto-header">
+          <span class="progetto-num">02</span>
+          <div class="progetto-tags">
+            <span class="progetto-tag">Ottimizzazione processo</span>
+            <span class="progetto-tag">Modellazione ODE</span>
+          </div>
+        </div>
+        <h3 class="progetto-name placeholder-text">Modellazione dei flussi operativi: −14% fabbisogno FTE dimostrato</h3>
+        <p class="progetto-desc placeholder-text">Modello matematico dei flussi operativi tramite sistemi ODE. Il risultato, oggi in produzione, ha dimostrato la fattibilità di ridurre il fabbisogno FTE mantenendo invariati i volumi.</p>
+        <div class="progetto-footer">
+          <span class="progetto-status">Case study in preparazione</span>
+          <span class="progetto-link">Dettagli →</span>
+        </div>
+      </div>
+
+      <div class="progetto-card">
+        <div class="progetto-header">
+          <span class="progetto-num">03</span>
+          <div class="progetto-tags">
+            <span class="progetto-tag">Analisi dati</span>
+            <span class="progetto-tag">Monte Carlo</span>
+          </div>
+        </div>
+        <h3 class="progetto-name placeholder-text">Forecasting probabilistico del fatturato per la pianificazione strategica</h3>
+        <p class="progetto-desc placeholder-text">Modello stocastico Monte Carlo per la stima del fatturato FY2027: distribuzione per cluster di vendita, oggi input diretto della pianificazione della dirigenza.</p>
+        <div class="progetto-footer">
+          <span class="progetto-status">Case study in preparazione</span>
+          <span class="progetto-link">Dettagli →</span>
+        </div>
+      </div>
+
+      <div class="progetto-card">
+        <div class="progetto-header">
+          <span class="progetto-num">04</span>
+          <div class="progetto-tags">
+            <span class="progetto-tag">Analisi dati</span>
+            <span class="progetto-tag">ETL · Automazione</span>
+          </div>
+        </div>
+        <h3 class="progetto-name placeholder-text">Pipeline ETL multi-gestionale: primo dataset unificato aziendale</h3>
+        <p class="progetto-desc placeholder-text">Unificazione dei dati da tre gestionali eterogenei in un unico data layer su PostgreSQL. Eliminazione completa del processo manuale in Excel con −10% monte ore settimanale.</p>
+        <div class="progetto-footer">
+          <span class="progetto-status">Case study in preparazione</span>
+          <span class="progetto-link">Dettagli →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contatto">
+  <div class="cta-inner">
+    <span class="section-label" style="justify-content: center;">Iniziamo</span>
+    <h2 class="cta-title">
+      Prenota una<br>
+      <em>call conoscitiva</em><br>
+      gratuita.
+    </h2>
+    <p class="cta-sub">30 minuti per capire insieme se posso aiutarti — senza impegno, senza vendite, senza PowerPoint.</p>
+    <a href="mailto:edoardo.crema@outlook.it" class="btn">
+      Scrivimi ora
+      <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 8h12M9 3l5 5-5 5"/>
+      </svg>
+    </a>
+    <p class="cta-note">Oppure scrivimi direttamente su LinkedIn</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">Edoardo Crema · Consulente di Ingegneria Gestionale</span>
+  <span class="footer-copy">© 2025 · Treviso, Italia</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 120);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.problem-item').forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
